@@ -51,7 +51,7 @@ class ThemeConstants {
         fontFamily: "NunitoSans",
       ),
       subtitle2: TextStyle(
-        color: ColorsConstantsLight.text,
+        color: ColorsConstantsLight.textLight,
         fontWeight: FontWeight.normal,
         fontSize: 20,
         fontFamily: "NunitoSans",
@@ -80,7 +80,7 @@ class ThemeConstants {
   static ThemeData dark = ThemeData(
     fontFamily: "NunitoSans",
     primaryColor: ColorsConstantsDark.primary,
-    brightness: Brightness.light,
+    brightness: Brightness.dark,
     backgroundColor: ColorsConstantsDark.background,
     scaffoldBackgroundColor: ColorsConstantsDark.background,
     cardColor: ColorsConstantsDark.card,
@@ -125,7 +125,7 @@ class ThemeConstants {
         fontFamily: "NunitoSans",
       ),
       subtitle2: TextStyle(
-        color: ColorsConstantsDark.text,
+        color: ColorsConstantsDark.textLight,
         fontWeight: FontWeight.normal,
         fontSize: 20,
         fontFamily: "NunitoSans",

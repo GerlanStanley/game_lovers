@@ -24,6 +24,11 @@ class ColorsConstantsDark {
   static const Color textLight = Color(0xFF929aa8);
   static const Color textExtraLight = Color(0xFFc1c6c9);
 
+  // Button Primary
+  static const Color primaryButtonBackground = Color(0xFF0077D1);
+  static const Color primaryButtonText = Color(0xFFFFFFFF);
+  static const Color primaryButtonBackgroundDisabled = Color(0xFFAAAAAA);
+
   // Others Widgets
   static const Color card = Color(0xFFFFFFFF);
 }

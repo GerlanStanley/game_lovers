@@ -16,11 +16,18 @@ class LoadingPlatformsState extends PlatformsState {
   List<Object> get props => [];
 }
 
+class LoadingMorePlatformsState extends PlatformsState {
+  @override
+  List<Object> get props => [];
+}
+
 class SuccessPlatformsState extends PlatformsState {
   final List<PlatformEntity> platforms;
+  final bool loadLast;
 
   const SuccessPlatformsState({
     required this.platforms,
+    this.loadLast = false,
   });
 
   @override
@@ -30,7 +37,20 @@ class SuccessPlatformsState extends PlatformsState {
 class FailurePlatformsState extends PlatformsState {
   final String error;
 
-  const FailurePlatformsState({required this.error});
+  const FailurePlatformsState(this.error);
+
+  @override
+  List<Object> get props => [error];
+}
+
+class FailureMorePlatformsState extends PlatformsState {
+  final List<PlatformEntity> platforms;
+  final String error;
+
+  const FailureMorePlatformsState({
+    required this.platforms,
+    required this.error,
+  });
 
   @override
   List<Object> get props => [error];

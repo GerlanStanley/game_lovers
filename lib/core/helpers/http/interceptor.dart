@@ -14,8 +14,9 @@ class CustomInterceptor extends InterceptorsWrapper {
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     var accessToken = _prefs.getString(PrefsKeysConstants.accessToken);
 
-    options.headers["Authorization"] = "Bearer: $accessToken";
     options.headers["Accept"] = "application/json";
+    options.headers["Authorization"] = "Bearer $accessToken";
+    options.headers["Client-ID"] = ApiConstants.clientId;
 
     options.baseUrl = ApiConstants.apiUrlPrefix;
 
@@ -31,36 +32,43 @@ class CustomInterceptor extends InterceptorsWrapper {
         response.statusCode == 401) {
       //
       try {
-        var response = await _dio.post(
-          ApiConstants.apiAuthUrlPrefix,
-          data: {
-            "client_id": ApiConstants.clientId,
-            "client_secret": ApiConstants.clientSecret,
-            "grant_type": "client_credentials",
-          },
-        );
-
-        if (response.statusCode == 200) {
-          _prefs.setString(
-            PrefsKeysConstants.accessToken,
-            response.data["access_token"],
-          );
-
-          final options = Options(
+        await _auth(requestOptions: err.requestOptions);
+        var response = await _dio.request(
+          err.requestOptions.path,
+          data: err.requestOptions.data,
+          queryParameters: err.requestOptions.queryParameters,
+          options: Options(
             method: err.requestOptions.method,
             headers: err.requestOptions.headers,
-          );
-
-          return _dio.request<dynamic>(
-            err.requestOptions.path,
-            data: err.requestOptions.data,
-            queryParameters: err.requestOptions.queryParameters,
-            options: options,
-          );
-        }
-      } catch (e) {
-        printDebug(e.toString());
+          ),
+        );
+        return handler.resolve(response);
+      } on DioError catch (e) {
+        printDebug(e.response?.realUri);
+        printDebug(e.response?.requestOptions.data);
+        printDebug(e.response?.statusCode);
+        printDebug(e.response?.data);
       }
     }
+
+    return handler.next(err);
+  }
+
+  Future _auth({required RequestOptions requestOptions}) async {
+    var response = await _dio.post(
+      ApiConstants.apiAuthUrlPrefix,
+      queryParameters: {
+        "client_id": ApiConstants.clientId,
+        "grant_type": "client_credentials",
+        "client_secret": ApiConstants.clientSecret,
+      },
+    );
+
+    printDebug(response.data["access_token"]);
+
+    _prefs.setString(
+      PrefsKeysConstants.accessToken,
+      response.data["access_token"],
+    );
   }
 }
