@@ -14,7 +14,10 @@ class PlatformDataSourceImpl implements IPlatformDataSource {
   @override
   Future<List<PlatformEntity>> getAll() async {
     try {
-      List response = await _httpHelper.get("/platforms");
+      List response = await _httpHelper.post(
+        "/platforms",
+        data: "fields id,name;"
+      );
       return PlatformMapper.fromList(response);
     } on Failure {
       rethrow;

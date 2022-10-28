@@ -32,8 +32,7 @@ class DioHttpHelperImpl implements IHttpHelper {
   @override
   Future<dynamic> post<T>(
     String path, {
-    Map<String, dynamic>? data,
-    String? token,
+    dynamic data,
   }) async {
     try {
       var response = await _dio.post<T>(path, data: data);
@@ -50,7 +49,6 @@ class DioHttpHelperImpl implements IHttpHelper {
   Future<dynamic> put<T>(
     String path, {
     Map<String, dynamic>? data,
-    String? token,
   }) async {
     try {
       var response = await _dio.put<T>(path, data: data);
