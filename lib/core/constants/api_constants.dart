@@ -1,4 +1,6 @@
 class ApiConstants {
+  ApiConstants._();
+
   static const String apiAuthUrlPrefix = "https://id.twitch.tv/oauth2/token";
   static const String apiUrlPrefix = "https://api.igdb.com/v4";
   static const String clientId = "baaosico7dv5pfrk9n44zg4k2zjzu2";
