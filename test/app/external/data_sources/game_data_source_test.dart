@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
 import 'package:game_lovers/app/domain/dtos/dtos.dart';
 import 'package:game_lovers/app/domain/entities/entities.dart';
@@ -10,22 +11,22 @@ import 'package:game_lovers/core/failures/failures.dart';
 import 'package:game_lovers/app/infra/data_sources/data_sources.dart';
 import 'package:game_lovers/core/helpers/http/http.dart';
 
-class MockHttpService extends Mock implements IHttpHelper {}
+import 'game_data_source_test.mocks.dart';
 
+@GenerateMocks([IHttpHelper])
 void main() {
-  late IHttpHelper httpHelper;
+  late MockIHttpHelper httpHelper;
   late IGameDataSource dataSource;
   late GetAllGamesInputDto input;
 
   setUp(() {
-    httpHelper = MockHttpService();
+    httpHelper = MockIHttpHelper();
     dataSource = GameDataSourceImpl(httpHelper);
     input = GetAllGamesInputDto(platformId: 1, limit: 20, offset: 0);
-    registerFallbackValue(input);
   });
 
   test("Deve retornar uma List<GameEntity>", () async {
-    when(() => httpHelper.post(any(), data: any(named: "data")))
+    when(httpHelper.post(any, data: anyNamed("data")))
         .thenAnswer((_) async => successJson);
 
     var result = await dataSource.getAll(input: input);
@@ -34,8 +35,7 @@ void main() {
   });
 
   test("Conferindo se está passando os params no data", () async {
-    when(() => httpHelper.post(any(), data: data))
-        .thenAnswer((_) async => successJson);
+    when(httpHelper.post(any, data: data)).thenAnswer((_) async => successJson);
 
     var result = await dataSource.getAll(input: input);
 
@@ -43,7 +43,7 @@ void main() {
   });
 
   test("Deve lançar uma HttpFailure quando status diferente de 200", () async {
-    when(() => httpHelper.post(any(), data: any(named: "data"))).thenThrow(
+    when(httpHelper.post(any, data: anyNamed("data"))).thenThrow(
       BadRequestHttpFailure(message: ""),
     );
 
@@ -53,8 +53,7 @@ void main() {
   });
 
   test("Deve retornar um ParseJsonFailure quando não vier um json", () async {
-    when(() => httpHelper.post(any(), data: any(named: "data")))
-        .thenThrow(Exception());
+    when(httpHelper.post(any, data: anyNamed("data"))).thenThrow(Exception());
 
     var result = dataSource.getAll(input: input);
 
@@ -64,7 +63,7 @@ void main() {
   test(
     "Deve retornar um ParseJsonFailure quando não conseguir parsear a resposta",
     () async {
-      when(() => httpHelper.post(any(), data: any(named: "data")))
+      when(httpHelper.post(any, data: anyNamed("data")))
           .thenAnswer((_) async => invalidJson);
 
       var result = dataSource.getAll(input: input);

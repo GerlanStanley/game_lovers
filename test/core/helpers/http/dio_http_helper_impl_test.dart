@@ -1,27 +1,30 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:game_lovers/core/failures/failures.dart';
-import 'package:mocktail/mocktail.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
 import 'package:game_lovers/core/helpers/http/http.dart';
 
-class MockDio extends Mock implements Dio {}
+import 'dio_http_helper_impl_test.mocks.dart';
+
+@GenerateMocks([Dio])
 
 void main() {
-  late Dio dio;
+  late MockDio dio;
   late IHttpHelper httpService;
 
   setUp(() {
     dio = MockDio();
-    when(() => dio.interceptors).thenAnswer((_) => Interceptors());
-    when(() => dio.options).thenAnswer((_) => BaseOptions());
+    when(dio.interceptors).thenAnswer((_) => Interceptors());
+    when(dio.options).thenAnswer((_) => BaseOptions());
     httpService = DioHttpHelperImpl(dio, Interceptor());
   });
 
   test(
     "Deve lançar um BadRequestHttpFailure quando o código da requisição for 400",
     () {
-      when(() => dio.get(any())).thenThrow(DioError(
+      when(dio.get(any)).thenThrow(DioError(
         requestOptions: RequestOptions(path: ""),
         response: Response(
           statusCode: 400,
@@ -38,7 +41,7 @@ void main() {
   test(
     "Deve lançar um UnauthorizedHttpFailure quando o código da requisição for 401",
     () {
-      when(() => dio.get(any())).thenThrow(DioError(
+      when(dio.get(any)).thenThrow(DioError(
         requestOptions: RequestOptions(path: ""),
         response: Response(
           statusCode: 401,
@@ -55,7 +58,7 @@ void main() {
   test(
     "Deve lançar um NotFoundHttpFailure quando o código da requisição for 404",
     () {
-      when(() => dio.get(any())).thenThrow(DioError(
+      when(dio.get(any)).thenThrow(DioError(
         requestOptions: RequestOptions(path: ""),
         response: Response(
           statusCode: 404,
@@ -72,7 +75,7 @@ void main() {
   test(
     "Deve lançar um ServerHttpFailure quando o código da requisição for 500",
     () {
-      when(() => dio.get(any())).thenThrow(DioError(
+      when(dio.get(any)).thenThrow(DioError(
         requestOptions: RequestOptions(path: ""),
         response: Response(
           statusCode: 500,
@@ -89,7 +92,7 @@ void main() {
   test(
     "Deve lançar um HttpFailure quando o código não for um códgo não tratável",
     () {
-      when(() => dio.get(any())).thenThrow(DioError(
+      when(dio.get(any)).thenThrow(DioError(
         requestOptions: RequestOptions(path: ""),
         response: Response(
           statusCode: 600,

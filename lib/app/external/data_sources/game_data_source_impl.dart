@@ -32,7 +32,6 @@ class GameDataSourceImpl implements IGameDataSource {
     } on Failure {
       rethrow;
     } catch (e, stackTrace) {
-      printDebug(stackTrace);
       throw ParseJsonFailure(
         message: "Erro ao mapear o json",
         stackTrace: stackTrace,

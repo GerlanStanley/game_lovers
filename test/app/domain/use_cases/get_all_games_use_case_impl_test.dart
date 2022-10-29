@@ -1,29 +1,26 @@
 import 'package:dartz/dartz.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:game_lovers/app/domain/dtos/dtos.dart';
-import 'package:mocktail/mocktail.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
+import 'package:game_lovers/app/domain/dtos/dtos.dart';
 import 'package:game_lovers/app/domain/entities/entities.dart';
 import 'package:game_lovers/app/domain/failures/failures.dart';
 import 'package:game_lovers/app/domain/repositories/repositories.dart';
 import 'package:game_lovers/app/domain/use_cases/use_cases.dart';
 import 'package:game_lovers/core/failures/failures.dart';
 
-class MockGameRepository extends Mock implements IGameRepository {}
+import 'get_all_games_use_case_impl_test.mocks.dart';
 
+@GenerateMocks([IGameRepository])
 void main() {
-  late IGameRepository repository;
+  late MockIGameRepository repository;
   late GetAllGamesUseCaseImpl useCase;
 
   setUp(() {
-    repository = MockGameRepository();
+    repository = MockIGameRepository();
     useCase = GetAllGamesUseCaseImpl(repository);
-    registerFallbackValue(GetAllGamesInputDto(
-      platformId: 1,
-      limit: 20,
-      offset: 0,
-    ));
   });
 
   test(
@@ -31,10 +28,7 @@ void main() {
     "retornar um Right(List<GameEntity>)",
     () async {
       var input = GetAllGamesInputDto(platformId: 1, limit: 20, offset: 0);
-
-      when(
-        () => repository.getAll(input: any(named: "input")),
-      ).thenAnswer((_) async {
+      when(repository.getAll(input: anyNamed("input"))).thenAnswer((_) async {
         List<GameEntity> games = [];
         for (int i = 0; i < 3; i++) {
           games.add(GameEntity(
@@ -124,9 +118,7 @@ void main() {
     () async {
       var input = GetAllGamesInputDto(platformId: 1, limit: 20, offset: 0);
 
-      when(
-        () => repository.getAll(input: any(named: "input")),
-      ).thenAnswer((_) async {
+      when(repository.getAll(input: anyNamed('input'))).thenAnswer((_) async {
         return Left<Failure, List<GameEntity>>(
           Failure(message: ""),
         );
