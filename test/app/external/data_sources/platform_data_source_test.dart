@@ -21,7 +21,8 @@ void main() {
   });
 
   test("Deve retornar uma List<PlatformEntity>", () async {
-    when(() => httpHelper.get(any())).thenAnswer((_) async => successJson);
+    when(() => httpHelper.post(any(), data: any(named: "data")))
+        .thenAnswer((_) async => successJson);
 
     var result = await dataSource.getAll();
 
@@ -29,7 +30,7 @@ void main() {
   });
 
   test("Deve lançar uma HttpFailure quando status diferente de 200", () async {
-    when(() => httpHelper.get(any())).thenThrow(
+    when(() => httpHelper.post(any(), data: any(named: "data"))).thenThrow(
       BadRequestHttpFailure(message: ""),
     );
 
@@ -39,7 +40,7 @@ void main() {
   });
 
   test("Deve retornar um ParseJsonFailure quando não vier um json", () async {
-    when(() => httpHelper.get(any())).thenThrow(Exception());
+    when(() => httpHelper.post(any(), data: any(named: "data"))).thenThrow(Exception());
 
     var result = dataSource.getAll();
 
@@ -49,7 +50,8 @@ void main() {
   test(
     "Deve retornar um ParseJsonFailure quando não conseguir parsear a resposta",
     () async {
-      when(() => httpHelper.get(any())).thenAnswer((_) async => invalidJson);
+      when(() => httpHelper.post(any(), data: any(named: "data")))
+          .thenAnswer((_) async => invalidJson);
 
       var result = dataSource.getAll();
 
