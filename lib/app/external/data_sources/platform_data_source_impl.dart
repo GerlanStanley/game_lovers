@@ -16,7 +16,12 @@ class PlatformDataSourceImpl implements IPlatformDataSource {
     try {
       List response = await _httpHelper.post(
         "/platforms",
-        data: "fields id,name;"
+        data: r'''
+          fields id,name;
+          where name = "Nintendo"* | name ="PlayStation"* | name = "PC (Microsoft Windows)"* | name = "Xbox"*;
+          sort name asc;
+          limit 100;
+        ''',
       );
       return PlatformMapper.fromList(response);
     } on Failure {
