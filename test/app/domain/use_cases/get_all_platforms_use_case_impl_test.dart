@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:game_lovers/app/domain/entities/entities.dart';
-import 'package:game_lovers/app/domain/failures/failures.dart';
 import 'package:game_lovers/app/domain/repositories/repositories.dart';
 import 'package:game_lovers/app/domain/use_cases/use_cases.dart';
 import 'package:game_lovers/core/failures/failures.dart';
