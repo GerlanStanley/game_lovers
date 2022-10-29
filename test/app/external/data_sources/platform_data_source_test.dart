@@ -47,7 +47,7 @@ void main() {
 
     var result = dataSource.getAll();
 
-    expect(result, throwsA(isA<ParseJsonFailure>()));
+    expect(result, throwsA(isA<ParseFailure>()));
   });
 
   test(
@@ -58,7 +58,7 @@ void main() {
 
       var result = dataSource.getAll();
 
-      expect(result, throwsA(isA<ParseJsonFailure>()));
+      expect(result, throwsA(isA<ParseFailure>()));
     },
   );
 }

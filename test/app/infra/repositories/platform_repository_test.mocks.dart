@@ -6,6 +6,8 @@
 import 'dart:async' as _i3;
 
 import 'package:game_lovers/app/domain/entities/entities.dart' as _i4;
+import 'package:game_lovers/app/infra/data_sources/local/local_platform_data_source.dart'
+    as _i5;
 import 'package:game_lovers/app/infra/data_sources/remote/remote_platform_data_source.dart'
     as _i2;
 import 'package:mockito/mockito.dart' as _i1;
@@ -39,4 +41,34 @@ class MockIRemotePlatformDataSource extends _i1.Mock
         returnValue:
             _i3.Future<List<_i4.PlatformEntity>>.value(<_i4.PlatformEntity>[]),
       ) as _i3.Future<List<_i4.PlatformEntity>>);
+}
+
+/// A class which mocks [ILocalPlatformDataSource].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockILocalPlatformDataSource extends _i1.Mock
+    implements _i5.ILocalPlatformDataSource {
+  MockILocalPlatformDataSource() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Future<List<_i4.PlatformEntity>> getAll() => (super.noSuchMethod(
+        Invocation.method(
+          #getAll,
+          [],
+        ),
+        returnValue:
+            _i3.Future<List<_i4.PlatformEntity>>.value(<_i4.PlatformEntity>[]),
+      ) as _i3.Future<List<_i4.PlatformEntity>>);
+  @override
+  _i3.Future<bool> saveAll({required List<_i4.PlatformEntity>? games}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #saveAll,
+          [],
+          {#games: games},
+        ),
+        returnValue: _i3.Future<bool>.value(false),
+      ) as _i3.Future<bool>);
 }

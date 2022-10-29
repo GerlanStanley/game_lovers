@@ -11,18 +11,20 @@ import 'package:game_lovers/core/failures/failures.dart';
 
 import 'platform_repository_test.mocks.dart';
 
-@GenerateMocks([IRemotePlatformDataSource])
+@GenerateMocks([IRemotePlatformDataSource, ILocalPlatformDataSource])
 void main() {
-  late MockIRemotePlatformDataSource dataSource;
+  late MockIRemotePlatformDataSource remoteDataSource;
+  late MockILocalPlatformDataSource localDataSource;
   late IPlatformRepository repository;
 
   setUp(() {
-    dataSource = MockIRemotePlatformDataSource();
-    repository = PlatformRepositoryImpl(dataSource);
+    remoteDataSource = MockIRemotePlatformDataSource();
+    localDataSource = MockILocalPlatformDataSource();
+    repository = PlatformRepositoryImpl(remoteDataSource, localDataSource);
   });
 
   test("Deve retornar uma List<PlatformEntity>", () async {
-    when(dataSource.getAll()).thenAnswer((_) async => []);
+    when(remoteDataSource.getAll()).thenAnswer((_) async => []);
 
     var result = await repository.getAll();
 
@@ -32,7 +34,7 @@ void main() {
   test(
     "Deve retornar um ParseDtoFailure quando lançar ParseDtoFailure",
     () async {
-      when(dataSource.getAll()).thenThrow(Failure(message: ""));
+      when(remoteDataSource.getAll()).thenThrow(Failure(message: ""));
 
       var result = await repository.getAll();
 

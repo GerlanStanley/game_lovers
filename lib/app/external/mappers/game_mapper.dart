@@ -18,7 +18,7 @@ class GameMapper {
       genres: json.containsKey("genres")
           ? GenreMapper.fromList(json["genres"])
           : [],
-      platforms: PlatformMapper.fromList(json["platforms"]),
+      platforms: PlatformMapper.fromListJson(json["platforms"]),
     );
   }
 }

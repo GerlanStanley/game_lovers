@@ -8,14 +8,18 @@ import '../../domain/repositories/repositories.dart';
 import '../data_sources/data_sources.dart';
 
 class PlatformRepositoryImpl implements IPlatformRepository {
-  final IRemotePlatformDataSource _dataSource;
+  final IRemotePlatformDataSource _remoteDataSource;
+  final ILocalPlatformDataSource _localDataSource;
 
-  PlatformRepositoryImpl(this._dataSource);
+  PlatformRepositoryImpl(this._remoteDataSource, this._localDataSource);
 
   @override
   Future<Either<Failure, List<PlatformEntity>>> getAll() async {
     try {
-      var result = await _dataSource.getAll();
+      var result = await _remoteDataSource.getAll();
+
+      await _localDataSource.saveAll(games: result);
+
       return Right(result);
     } on Failure catch (e) {
       return Left(e);

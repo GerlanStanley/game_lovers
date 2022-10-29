@@ -23,11 +23,12 @@ class RemotePlatformDataSourceImpl implements IRemotePlatformDataSource {
           limit 100;
         ''',
       );
-      return PlatformMapper.fromList(response);
+      return PlatformMapper.fromListJson(response);
     } on Failure {
       rethrow;
     } catch (e, stackTrace) {
-      throw ParseJsonFailure(
+      print(stackTrace);
+      throw ParseFailure(
         message: "Erro ao mapear o json",
         stackTrace: stackTrace,
       );

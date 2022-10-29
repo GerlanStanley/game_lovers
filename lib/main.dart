@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'app/domain/repositories/repositories.dart';
 import 'app/domain/use_cases/use_cases.dart';
 import 'app/external/data_sources/data_sources.dart';
+import 'app/external/drift/database.dart';
 import 'app/infra/data_sources/data_sources.dart';
 import 'app/infra/repositories/repositories.dart';
 import 'app/presenter/blocs/platforms/platforms.dart';
@@ -16,21 +17,31 @@ import 'core/helpers/http/http.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  var sharedPreferences = await SharedPreferences.getInstance();
+  final sharedPreferences = await SharedPreferences.getInstance();
+  final localDatabase = LocalDatabase();
 
-  runApp(MyApp(sharedPreferences: sharedPreferences));
+  runApp(MyApp(
+    sharedPreferences: sharedPreferences,
+    localDatabase: localDatabase,
+  ));
 }
 
 class MyApp extends StatelessWidget {
   final SharedPreferences sharedPreferences;
+  final LocalDatabase localDatabase;
 
-  const MyApp({Key? key, required this.sharedPreferences}) : super(key: key);
+  const MyApp({
+    Key? key,
+    required this.sharedPreferences,
+    required this.localDatabase,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         Provider<SharedPreferences>(create: (_) => sharedPreferences),
+        Provider<LocalDatabase>(create: (_) => localDatabase),
         Provider<Dio>(create: (_) => Dio()),
         Provider<Interceptor>(
           create: (context) => CustomInterceptor(
@@ -49,13 +60,19 @@ class MyApp extends StatelessWidget {
         Provider<IRemotePlatformDataSource>(
           create: (context) => RemotePlatformDataSourceImpl(context.read()),
         ),
+        Provider<ILocalPlatformDataSource>(
+          create: (context) => LocalPlatformDataSourceImpl(context.read()),
+        ),
         Provider<IRemoteGameDataSource>(
           create: (context) => RemoteGameDataSourceImpl(context.read()),
         ),
 
         // Repositories
         Provider<IPlatformRepository>(
-          create: (context) => PlatformRepositoryImpl(context.read()),
+          create: (context) => PlatformRepositoryImpl(
+            context.read(),
+            context.read(),
+          ),
         ),
         Provider<IGameRepository>(
           create: (context) => GameRepositoryImpl(context.read()),

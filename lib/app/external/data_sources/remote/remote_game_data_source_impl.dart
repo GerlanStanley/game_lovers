@@ -1,5 +1,3 @@
-import 'package:game_lovers/core/utils/utils.dart';
-
 import '../../../../core/failures/failures.dart';
 import '../../../../core/helpers/http/http.dart';
 
@@ -32,7 +30,7 @@ class RemoteGameDataSourceImpl implements IRemoteGameDataSource {
     } on Failure {
       rethrow;
     } catch (e, stackTrace) {
-      throw ParseJsonFailure(
+      throw ParseFailure(
         message: "Erro ao mapear o json",
         stackTrace: stackTrace,
       );
