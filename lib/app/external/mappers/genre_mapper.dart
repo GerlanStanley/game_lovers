@@ -1,12 +1,12 @@
 import '../../domain/entities/entities.dart';
 
-class PlatformMapper {
-  static List<PlatformEntity> fromList(List list) {
+class GenreMapper {
+  static List<GenreEntity> fromList(List list) {
     return list.map((element) => fromJson(element)).toList();
   }
 
-  static PlatformEntity fromJson(Map json) {
-    return PlatformEntity(
+  static GenreEntity fromJson(Map json) {
+    return GenreEntity(
       id: json["id"],
       name: json["name"],
     );

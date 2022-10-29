@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:game_lovers/app/domain/dtos/dtos.dart';
 import 'package:mocktail/mocktail.dart';
 
+import 'package:game_lovers/app/domain/dtos/dtos.dart';
 import 'package:game_lovers/app/domain/entities/entities.dart';
 import 'package:game_lovers/app/domain/repositories/repositories.dart';
 import 'package:game_lovers/app/infra/data_sources/data_sources.dart';
