@@ -9,7 +9,7 @@ import '../../domain/repositories/repositories.dart';
 import '../data_sources/data_sources.dart';
 
 class GameRepositoryImpl implements IGameRepository {
-  final IGameDataSource _dataSource;
+  final IRemoteGameDataSource _dataSource;
 
   GameRepositoryImpl(this._dataSource);
 

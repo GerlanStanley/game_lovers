@@ -1,2 +1,2 @@
-export 'game_data_source_impl.dart';
-export 'platform_data_source_impl.dart';
+export 'remote/remote_game_data_source_impl.dart';
+export 'remote/remote_platform_data_source_impl.dart';

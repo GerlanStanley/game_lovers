@@ -15,11 +15,11 @@ import 'game_data_source_test.mocks.dart';
 @GenerateMocks([IHttpHelper])
 void main() {
   late MockIHttpHelper httpHelper;
-  late IPlatformDataSource dataSource;
+  late IRemotePlatformDataSource dataSource;
 
   setUp(() {
     httpHelper = MockIHttpHelper();
-    dataSource = PlatformDataSourceImpl(httpHelper);
+    dataSource = RemotePlatformDataSourceImpl(httpHelper);
   });
 
   test("Deve retornar uma List<PlatformEntity>", () async {

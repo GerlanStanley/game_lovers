@@ -11,13 +11,13 @@ import 'package:game_lovers/core/failures/failures.dart';
 
 import 'platform_repository_test.mocks.dart';
 
-@GenerateMocks([IPlatformDataSource])
+@GenerateMocks([IRemotePlatformDataSource])
 void main() {
-  late MockIPlatformDataSource dataSource;
+  late MockIRemotePlatformDataSource dataSource;
   late IPlatformRepository repository;
 
   setUp(() {
-    dataSource = MockIPlatformDataSource();
+    dataSource = MockIRemotePlatformDataSource();
     repository = PlatformRepositoryImpl(dataSource);
   });
 

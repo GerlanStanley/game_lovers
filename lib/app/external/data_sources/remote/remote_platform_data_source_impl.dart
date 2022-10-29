@@ -1,15 +1,15 @@
-import '../../../core/failures/failures.dart';
-import '../../../core/helpers/http/http.dart';
+import '../../../../core/failures/failures.dart';
+import '../../../../core/helpers/http/http.dart';
 
-import '../../domain/entities/entities.dart';
-import '../../infra/data_sources/data_sources.dart';
+import '../../../domain/entities/entities.dart';
+import '../../../infra/data_sources/data_sources.dart';
 
-import '../mappers/mappers.dart';
+import '../../mappers/mappers.dart';
 
-class PlatformDataSourceImpl implements IPlatformDataSource {
+class RemotePlatformDataSourceImpl implements IRemotePlatformDataSource {
   final IHttpHelper _httpHelper;
 
-  PlatformDataSourceImpl(this._httpHelper);
+  RemotePlatformDataSourceImpl(this._httpHelper);
 
   @override
   Future<List<PlatformEntity>> getAll() async {

@@ -8,7 +8,7 @@ import '../../domain/repositories/repositories.dart';
 import '../data_sources/data_sources.dart';
 
 class PlatformRepositoryImpl implements IPlatformRepository {
-  final IPlatformDataSource _dataSource;
+  final IRemotePlatformDataSource _dataSource;
 
   PlatformRepositoryImpl(this._dataSource);
 

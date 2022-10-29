@@ -8,7 +8,6 @@ import 'app/domain/use_cases/use_cases.dart';
 import 'app/external/data_sources/data_sources.dart';
 import 'app/infra/data_sources/data_sources.dart';
 import 'app/infra/repositories/repositories.dart';
-import 'app/presenter/blocs/games/games.dart';
 import 'app/presenter/blocs/platforms/platforms.dart';
 import 'app/presenter/pages/home/home.dart';
 import 'core/constants/constants.dart';
@@ -47,11 +46,11 @@ class MyApp extends StatelessWidget {
         ),
 
         // DataSources
-        Provider<IPlatformDataSource>(
-          create: (context) => PlatformDataSourceImpl(context.read()),
+        Provider<IRemotePlatformDataSource>(
+          create: (context) => RemotePlatformDataSourceImpl(context.read()),
         ),
-        Provider<IGameDataSource>(
-          create: (context) => GameDataSourceImpl(context.read()),
+        Provider<IRemoteGameDataSource>(
+          create: (context) => RemoteGameDataSourceImpl(context.read()),
         ),
 
         // Repositories

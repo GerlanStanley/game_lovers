@@ -6,7 +6,7 @@
 import 'dart:async' as _i3;
 
 import 'package:game_lovers/app/domain/entities/entities.dart' as _i4;
-import 'package:game_lovers/app/infra/data_sources/platform_data_source.dart'
+import 'package:game_lovers/app/infra/data_sources/remote/remote_platform_data_source.dart'
     as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -21,12 +21,12 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-/// A class which mocks [IPlatformDataSource].
+/// A class which mocks [IRemotePlatformDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockIPlatformDataSource extends _i1.Mock
-    implements _i2.IPlatformDataSource {
-  MockIPlatformDataSource() {
+class MockIRemotePlatformDataSource extends _i1.Mock
+    implements _i2.IRemotePlatformDataSource {
+  MockIRemotePlatformDataSource() {
     _i1.throwOnMissingStub(this);
   }
 

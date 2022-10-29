@@ -12,14 +12,14 @@ import 'package:game_lovers/core/failures/failures.dart';
 
 import 'game_repository_test.mocks.dart';
 
-@GenerateMocks([IGameDataSource])
+@GenerateMocks([IRemoteGameDataSource])
 void main() {
-  late MockIGameDataSource dataSource;
+  late MockIRemoteGameDataSource dataSource;
   late IGameRepository repository;
   late GetAllGamesInputDto input;
 
   setUp(() {
-    dataSource = MockIGameDataSource();
+    dataSource = MockIRemoteGameDataSource();
     repository = GameRepositoryImpl(dataSource);
     input = GetAllGamesInputDto(platformId: 1, limit: 20, offset: 0);
   });

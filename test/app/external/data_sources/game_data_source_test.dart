@@ -16,12 +16,12 @@ import 'game_data_source_test.mocks.dart';
 @GenerateMocks([IHttpHelper])
 void main() {
   late MockIHttpHelper httpHelper;
-  late IGameDataSource dataSource;
+  late IRemoteGameDataSource dataSource;
   late GetAllGamesInputDto input;
 
   setUp(() {
     httpHelper = MockIHttpHelper();
-    dataSource = GameDataSourceImpl(httpHelper);
+    dataSource = RemoteGameDataSourceImpl(httpHelper);
     input = GetAllGamesInputDto(platformId: 1, limit: 20, offset: 0);
   });
 

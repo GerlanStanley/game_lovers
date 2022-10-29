@@ -7,7 +7,7 @@ import 'dart:async' as _i3;
 
 import 'package:game_lovers/app/domain/dtos/dtos.dart' as _i5;
 import 'package:game_lovers/app/domain/entities/entities.dart' as _i4;
-import 'package:game_lovers/app/infra/data_sources/game_data_source.dart'
+import 'package:game_lovers/app/infra/data_sources/remote/remote_game_data_source.dart'
     as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -22,11 +22,12 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-/// A class which mocks [IGameDataSource].
+/// A class which mocks [IRemoteGameDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockIGameDataSource extends _i1.Mock implements _i2.IGameDataSource {
-  MockIGameDataSource() {
+class MockIRemoteGameDataSource extends _i1.Mock
+    implements _i2.IRemoteGameDataSource {
+  MockIRemoteGameDataSource() {
     _i1.throwOnMissingStub(this);
   }
 
