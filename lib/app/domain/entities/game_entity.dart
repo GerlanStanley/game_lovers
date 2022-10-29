@@ -3,8 +3,8 @@ import 'entities.dart';
 class GameEntity {
   final int id;
   final String name;
-  final String summary;
-  final CoverEntity cover;
+  final String? summary;
+  final CoverEntity? cover;
   final List<GenreEntity> genres;
   final List<PlatformEntity> platforms;
 

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
+import '../../blocs/games/games.dart';
 import '../../blocs/platforms/platforms.dart';
 import '../../widgets/widgets.dart';
+import 'components/components.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -46,8 +49,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           if (state.platforms.isEmpty) {
             body = const EmptyWidget(
               iconData: Icons.videogame_asset_outlined,
-              title: "Sem plataformas",
-              subtitle: "Não encontramos nenhuma plataforma na base de dados",
+              title: "No platform",
+              subtitle: "We didn't find any platform in the database",
             );
           }
 
@@ -56,14 +59,23 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             length: state.platforms.length,
           );
 
-          body = Container();
           tabBar = TabBar(
             isScrollable: true,
             controller: tabController,
             tabs: state.platforms
-                .map((element) => Tab(
-                      text: element.name,
-                    ))
+                .map((element) => Tab(text: element.name))
+                .toList(),
+          );
+
+          body = TabBarView(
+            controller: tabController,
+            children: state.platforms
+                .map(
+                  (element) => Provider<GamesBloc>(
+                    create: (context) => GamesBloc(context.read()),
+                    child: TabGamesComponent(platformId: element.id),
+                  ),
+                )
                 .toList(),
           );
         }

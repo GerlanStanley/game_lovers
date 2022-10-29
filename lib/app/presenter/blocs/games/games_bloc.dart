@@ -1,28 +1,46 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../domain/dtos/dtos.dart';
 import '../../../domain/use_cases/use_cases.dart';
 
 import 'games.dart';
 
-class PlatformsBloc extends Bloc<PlatformsEvent, PlatformsState> {
-  final IGetAllPlatformsUseCase getAllPlatforms;
+class GamesBloc extends Bloc<GamesEvent, GamesState> {
+  final IGetAllGamesUseCase _getAllGames;
 
-  PlatformsBloc({
-    required this.getAllPlatforms,
-  }) : super(InitialPlatformsState()) {
-    on<GetAllPlatformsEvent>(_onGetAll);
+  GamesBloc(this._getAllGames) : super(const InitialGamesState(games: [])) {
+    on<GetAllGamesEvent>(_onGetAll);
   }
 
   Future<void> _onGetAll(
-    GetAllPlatformsEvent event,
-    Emitter<PlatformsState> emit,
+    GetAllGamesEvent event,
+    Emitter<GamesState> emit,
   ) async {
-    if (state is! LoadingPlatformsState &&
-        state is! LoadingMorePlatformsState &&
-        (state is SuccessPlatformsState &&
-            !(state as SuccessPlatformsState).loadLast)) {
+    if (state is! LoadingGamesState &&
+        (state is! SuccessGamesState ||
+            !((state as SuccessGamesState).loadLast))) {
       //
+      emit(LoadingGamesState(games: state.games));
 
+      var result = await _getAllGames(
+        input: GetAllGamesInputDto(
+          platformId: event.platformId,
+          offset: state.games.length,
+          limit: 20,
+        ),
+      );
+
+      result.fold((left) {
+        emit(FailureGamesState(
+          games: state.games,
+          error: left.message,
+        ));
+      }, (right) async {
+        emit(SuccessGamesState(
+          games: state.games + right,
+          loadLast: right.isEmpty,
+        ));
+      });
     }
   }
 }

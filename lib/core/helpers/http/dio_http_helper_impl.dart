@@ -77,10 +77,7 @@ class DioHttpHelperImpl implements IHttpHelper {
   dynamic validateCode(DioError error) {
     logRequest(error.response);
 
-    String? message;
-    if (error.response?.data is Map) {
-      message = ErrorApiUtils.parse(error.response!.data);
-    }
+    String? message = ErrorApiUtils.parse(error.response!.data);
 
     if (error.response?.statusCode == 400) {
       throw BadRequestHttpFailure(message: message ?? "Erro na requisição");

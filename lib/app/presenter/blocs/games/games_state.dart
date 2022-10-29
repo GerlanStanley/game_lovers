@@ -2,55 +2,51 @@ import 'package:equatable/equatable.dart';
 
 import '../../../domain/entities/entities.dart';
 
-abstract class PlatformsState extends Equatable {
-  const PlatformsState();
+abstract class GamesState extends Equatable {
+  final List<GameEntity> games;
+
+  const GamesState({
+    required this.games,
+  });
 }
 
-class InitialPlatformsState extends PlatformsState {
+class InitialGamesState extends GamesState {
+  const InitialGamesState({
+    required List<GameEntity> games,
+  }) : super(games: games);
+
   @override
   List<Object> get props => [];
 }
 
-class LoadingPlatformsState extends PlatformsState {
+class LoadingGamesState extends GamesState {
+  const LoadingGamesState({
+    required List<GameEntity> games,
+  }) : super(games: games);
+
   @override
   List<Object> get props => [];
 }
 
-class LoadingMorePlatformsState extends PlatformsState {
-  @override
-  List<Object> get props => [];
-}
-
-class SuccessPlatformsState extends PlatformsState {
-  final List<PlatformEntity> platforms;
+class SuccessGamesState extends GamesState {
   final bool loadLast;
 
-  const SuccessPlatformsState({
-    required this.platforms,
-    this.loadLast = false,
-  });
+  const SuccessGamesState({
+    required List<GameEntity> games,
+    required this.loadLast,
+  }) : super(games: games);
 
   @override
   List<Object> get props => [];
 }
 
-class FailurePlatformsState extends PlatformsState {
+class FailureGamesState extends GamesState {
   final String error;
 
-  const FailurePlatformsState(this.error);
-
-  @override
-  List<Object> get props => [error];
-}
-
-class FailureMorePlatformsState extends PlatformsState {
-  final List<PlatformEntity> platforms;
-  final String error;
-
-  const FailureMorePlatformsState({
-    required this.platforms,
+  const FailureGamesState({
+    required List<GameEntity> games,
     required this.error,
-  });
+  }) : super(games: games);
 
   @override
   List<Object> get props => [error];
