@@ -18,6 +18,12 @@ class GetAllGamesUseCaseImpl implements IGetAllGamesUseCase {
   Future<Either<Failure, List<GameEntity>>> call({
     required GetAllGamesInputDto input,
   }) async {
+    if (input.platformId < 1) {
+      return Left(GetAllGamesPlatformFailure(
+        message: "Minimum value you can set for platformId is 1",
+      ));
+    }
+
     if (input.limit < 1) {
       return Left(GetAllGamesLimitFailure(
         message: "Minimum value you can set for limit is 1",

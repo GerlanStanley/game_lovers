@@ -19,7 +19,7 @@ void main() {
   setUp(() {
     dataSource = MockGameDataSource();
     repository = GameRepositoryImpl(dataSource);
-    input = GetAllGamesInputDto(limit: 20, offset: 0);
+    input = GetAllGamesInputDto(platformId: 1, limit: 20, offset: 0);
     registerFallbackValue(input);
   });
 

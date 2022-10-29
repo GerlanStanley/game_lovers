@@ -20,7 +20,7 @@ void main() {
   setUp(() {
     httpHelper = MockHttpService();
     dataSource = GameDataSourceImpl(httpHelper);
-    input = GetAllGamesInputDto(limit: 20, offset: 0);
+    input = GetAllGamesInputDto(platformId: 1, limit: 20, offset: 0);
     registerFallbackValue(input);
   });
 
@@ -76,7 +76,7 @@ void main() {
 
 const String data = "fields name,platforms.name,genres.name,summary,cover.url,"
     "cover.image_id,total_rating; "
-    "where platforms = 4; "
+    "where platforms = 1; "
     "sort total_rating desc; "
     "limit 20; "
     "offset 0;";

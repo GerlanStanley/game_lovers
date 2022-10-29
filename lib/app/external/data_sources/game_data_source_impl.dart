@@ -21,7 +21,7 @@ class GameDataSourceImpl implements IGameDataSource {
         "/platforms",
         data: "fields name,platforms.name,genres.name,summary,cover.url,"
             "cover.image_id,total_rating; "
-            "where platforms = 4; "
+            "where platforms = ${input.platformId}; "
             "sort total_rating desc; "
             "limit ${input.limit}; "
             "offset ${input.offset};",
