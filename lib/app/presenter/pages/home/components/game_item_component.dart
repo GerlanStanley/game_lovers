@@ -34,9 +34,9 @@ class GameItemComponent extends StatelessWidget {
           fit: StackFit.expand,
           children: [
             game.cover != null
-                ? Image.network(
-                    "${ApiConstants.apiUrlImagePrefix}"
-                    "${game.cover!.imageId}.jpg",
+                ? CachedNetworkImageWidget(
+                    image: "${ApiConstants.apiUrlImagePrefix}"
+                        "${game.cover!.imageId}.jpg",
                     fit: BoxFit.cover,
                   )
                 : Container(),

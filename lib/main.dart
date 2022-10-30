@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -7,7 +8,9 @@ import 'app/domain/repositories/repositories.dart';
 import 'app/domain/use_cases/use_cases.dart';
 import 'app/external/data_sources/data_sources.dart';
 import 'app/external/drift/database.dart';
+import 'app/external/drivers/drivers.dart';
 import 'app/infra/data_sources/data_sources.dart';
+import 'app/infra/drivers/drivers.dart';
 import 'app/infra/repositories/repositories.dart';
 import 'app/presenter/blocs/platforms/platforms.dart';
 import 'app/presenter/pages/home/home.dart';
@@ -40,6 +43,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        Provider<InternetConnectionChecker>(
+          create: (_) => InternetConnectionChecker(),
+        ),
         Provider<SharedPreferences>(create: (_) => sharedPreferences),
         Provider<LocalDatabase>(create: (_) => localDatabase),
         Provider<Dio>(create: (_) => Dio()),
@@ -60,6 +66,10 @@ class MyApp extends StatelessWidget {
         Provider<IRemotePlatformDataSource>(
           create: (context) => RemotePlatformDataSourceImpl(context.read()),
         ),
+        // Drivers
+        Provider<IInternetDriver>(
+          create: (context) => InternetDriverImpl(context.read()),
+        ),
         Provider<ILocalPlatformDataSource>(
           create: (context) => LocalPlatformDataSourceImpl(context.read()),
         ),
@@ -75,10 +85,12 @@ class MyApp extends StatelessWidget {
           create: (context) => PlatformRepositoryImpl(
             context.read(),
             context.read(),
+            context.read(),
           ),
         ),
         Provider<IGameRepository>(
           create: (context) => GameRepositoryImpl(
+            context.read(),
             context.read(),
             context.read(),
           ),

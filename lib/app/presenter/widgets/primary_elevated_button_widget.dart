@@ -65,6 +65,7 @@ class PrimaryElevatedButtonWidget extends StatelessWidget {
             },
           ),
         ),
+        onPressed: onPressed,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
@@ -87,7 +88,6 @@ class PrimaryElevatedButtonWidget extends StatelessWidget {
             trailing ?? Container()
           ],
         ),
-        onPressed: onPressed,
       ),
     );
   }

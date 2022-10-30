@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/constants.dart';
 
 import '../../../domain/entities/entities.dart';
+import '../../widgets/widgets.dart';
 
 class GamePage extends StatelessWidget {
   final GameEntity game;
@@ -21,9 +22,9 @@ class GamePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             game.cover != null
-                ? Image.network(
-                    "${ApiConstants.apiUrlImagePrefix}"
-                    "${game.cover!.imageId}.jpg",
+                ? CachedNetworkImageWidget(
+                    image: "${ApiConstants.apiUrlImagePrefix}"
+                        "${game.cover!.imageId}.jpg",
                     fit: BoxFit.cover,
                   )
                 : Container(),

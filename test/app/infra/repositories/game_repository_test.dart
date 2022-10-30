@@ -7,22 +7,29 @@ import 'package:game_lovers/app/domain/dtos/dtos.dart';
 import 'package:game_lovers/app/domain/entities/entities.dart';
 import 'package:game_lovers/app/domain/repositories/repositories.dart';
 import 'package:game_lovers/app/infra/data_sources/data_sources.dart';
+import 'package:game_lovers/app/infra/drivers/drivers.dart';
 import 'package:game_lovers/app/infra/repositories/repositories.dart';
 import 'package:game_lovers/core/failures/failures.dart';
 
 import 'game_repository_test.mocks.dart';
 
-@GenerateMocks([IRemoteGameDataSource, ILocalGameDataSource])
+@GenerateMocks([IRemoteGameDataSource, ILocalGameDataSource, IInternetDriver])
 void main() {
   late MockIRemoteGameDataSource remoteDataSource;
   late MockILocalGameDataSource localDataSource;
+  late MockIInternetDriver internetDriver;
   late IGameRepository repository;
   late GetAllGamesInputDto input;
 
   setUp(() {
     remoteDataSource = MockIRemoteGameDataSource();
     localDataSource = MockILocalGameDataSource();
-    repository = GameRepositoryImpl(remoteDataSource, localDataSource);
+    internetDriver = MockIInternetDriver();
+    repository = GameRepositoryImpl(
+      remoteDataSource,
+      localDataSource,
+      internetDriver,
+    );
     input = GetAllGamesInputDto(platformId: 1, limit: 20, offset: 0);
   });
 

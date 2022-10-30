@@ -1,3 +1,4 @@
+export 'cached_network_image_widget.dart';
 export 'card_widget.dart';
 export 'empty_widget.dart';
 export 'failure_widget.dart';

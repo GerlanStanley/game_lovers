@@ -18,7 +18,17 @@ class RemotePlatformDataSourceImpl implements IRemotePlatformDataSource {
         "/platforms",
         data: r'''
           fields id,name;
-          where name = "Nintendo"* | name ="PlayStation"* | name = "PC (Microsoft Windows)"* | name = "Xbox"*;
+          where name = "Nintendo 3DS" 
+            | name ="Nintendo 64" 
+            | name ="Nintendo Entertainment"* 
+            | name ="Nintendo GameCube"
+            | name ="PlayStation"
+            | name ="PlayStation 2"
+            | name ="PlayStation 3"
+            | name ="PlayStation 4"
+            | name ="PlayStation 5"
+            | name = "PC (Microsoft Windows)"* 
+            | name = "Xbox"*;
           sort name asc;
           limit 100;
         ''',

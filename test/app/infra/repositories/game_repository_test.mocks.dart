@@ -11,6 +11,7 @@ import 'package:game_lovers/app/infra/data_sources/local/local_game_data_source.
     as _i6;
 import 'package:game_lovers/app/infra/data_sources/remote/remote_game_data_source.dart'
     as _i2;
+import 'package:game_lovers/app/infra/drivers/internet_driver.dart' as _i7;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -73,6 +74,24 @@ class MockILocalGameDataSource extends _i1.Mock
           #saveAll,
           [],
           {#games: games},
+        ),
+        returnValue: _i3.Future<bool>.value(false),
+      ) as _i3.Future<bool>);
+}
+
+/// A class which mocks [IInternetDriver].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockIInternetDriver extends _i1.Mock implements _i7.IInternetDriver {
+  MockIInternetDriver() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Future<bool> isConnected() => (super.noSuchMethod(
+        Invocation.method(
+          #isConnected,
+          [],
         ),
         returnValue: _i3.Future<bool>.value(false),
       ) as _i3.Future<bool>);

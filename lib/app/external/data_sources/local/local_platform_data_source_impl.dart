@@ -19,8 +19,15 @@ class LocalPlatformDataSourceImpl implements ILocalPlatformDataSource {
     try {
       final query = _database.select(_database.platforms);
       query.where((tbl) =>
-          tbl.name.like("Nintendo%") |
-          tbl.name.like("PlayStation%") |
+          tbl.name.like("Nintendo 3DS") |
+          tbl.name.like("Nintendo 64") |
+          tbl.name.like("Nintendo Entertainment%") |
+          tbl.name.like("Nintendo GameCube") |
+          tbl.name.like("PlayStation") |
+          tbl.name.like("PlayStation 2") |
+          tbl.name.like("PlayStation 3") |
+          tbl.name.like("PlayStation 4") |
+          tbl.name.like("PlayStation 5") |
           tbl.name.like("PC (Microsoft Windows)%") |
           tbl.name.like("Xbox%"));
       query.orderBy([
