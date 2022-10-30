@@ -27,7 +27,6 @@ class RemotePlatformDataSourceImpl implements IRemotePlatformDataSource {
     } on Failure {
       rethrow;
     } catch (e, stackTrace) {
-      print(stackTrace);
       throw ParseFailure(
         message: "Erro ao mapear o json",
         stackTrace: stackTrace,

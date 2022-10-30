@@ -5,6 +5,7 @@ import '../../../../../core/constants/constants.dart';
 import '../../../../domain/entities/entities.dart';
 
 import '../../../widgets/widgets.dart';
+import '../../game/game.dart';
 
 class GameItemComponent extends StatelessWidget {
   final GameEntity game;
@@ -21,6 +22,12 @@ class GameItemComponent extends StatelessWidget {
       padding: const EdgeInsets.all(0),
       borderRadius: borderRadius,
       backgroundColor: Colors.black38,
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => GamePage(game: game)),
+        );
+      },
       child: ClipRRect(
         borderRadius: borderRadius,
         child: Stack(

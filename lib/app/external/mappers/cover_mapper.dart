@@ -1,3 +1,5 @@
+import 'package:drift/drift.dart';
+
 import '../../domain/entities/entities.dart';
 
 class CoverMapper {
@@ -10,6 +12,14 @@ class CoverMapper {
       id: json["id"],
       imageId: json["image_id"],
       url: json["url"],
+    );
+  }
+
+  static CoverEntity fromTypedResult(TypedResult result) {
+    return CoverEntity(
+      id: int.parse(result.rawData.data["covers.id"]),
+      imageId: result.rawData.data["covers.image_id"],
+      url: result.rawData.data["covers.url"],
     );
   }
 }

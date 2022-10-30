@@ -26,7 +26,7 @@ class GamesBloc extends Bloc<GamesEvent, GamesState> {
         input: GetAllGamesInputDto(
           platformId: event.platformId,
           offset: state.games.length,
-          limit: 30,
+          limit: 3,
         ),
       );
 

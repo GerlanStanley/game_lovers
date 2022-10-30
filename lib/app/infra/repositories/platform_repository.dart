@@ -16,9 +16,10 @@ class PlatformRepositoryImpl implements IPlatformRepository {
   @override
   Future<Either<Failure, List<PlatformEntity>>> getAll() async {
     try {
-      var result = await _remoteDataSource.getAll();
+      //var result = await _remoteDataSource.getAll();
+      //await _localDataSource.saveAll(platforms: result);
 
-      await _localDataSource.saveAll(games: result);
+      var result = await _localDataSource.getAll();
 
       return Right(result);
     } on Failure catch (e) {

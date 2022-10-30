@@ -35,6 +35,7 @@ void main() {
             id: faker.randomGenerator.integer(10000),
             name: faker.vehicle.model(),
             summary: faker.lorem.sentence(),
+            rating: 1000,
             cover: CoverEntity(
               id: faker.randomGenerator.integer(10000),
               imageId: faker.image.image(),

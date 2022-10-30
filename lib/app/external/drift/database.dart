@@ -17,39 +17,64 @@ class Platforms extends Table {
 }
 
 class Games extends Table {
-  IntColumn get id => integer().unique()();
+  TextColumn get id => text()();
 
   TextColumn get name => text()();
 
   TextColumn get summary => text().nullable()();
 
-  IntColumn get cover => integer().nullable().references(Covers, #id)();
+  RealColumn get rating => real()();
+
+  TextColumn get cover => text().nullable().references(Covers, #id)();
+
+  @override
+  Set<Column> get primaryKey => {id};
 }
 
 @DataClassName("Cover")
 class Covers extends Table {
-  IntColumn get id => integer().unique()();
+  TextColumn get id => text()();
 
   TextColumn get imageId => text()();
 
   TextColumn get url => text()();
+
+  @override
+  Set<Column> get primaryKey => {id};
 }
 
 @DataClassName("Genre")
 class Genres extends Table {
-  IntColumn get id => integer().unique()();
+  TextColumn get id => text()();
 
   TextColumn get name => text()();
+
+  @override
+  Set<Column> get primaryKey => {id};
 }
 
 @DataClassName('GameGenreEntry')
 class GameGenreEntries extends Table {
-  IntColumn get game => integer().references(Games, #id)();
+  TextColumn get game => text().references(Games, #id)();
 
-  IntColumn get genre => integer().references(Genres, #id)();
+  TextColumn get genre => text().references(Genres, #id)();
 }
 
-@DriftDatabase(tables: [Platforms, Games, Covers, Genres, GameGenreEntries])
+@DataClassName('GamePlatformEntry')
+class GamePlatformEntries extends Table {
+  TextColumn get game => text().references(Games, #id)();
+
+  TextColumn get platform => text().references(Platforms, #id)();
+}
+
+@DriftDatabase(tables: [
+  Platforms,
+  Games,
+  Covers,
+  Genres,
+  GameGenreEntries,
+  GamePlatformEntries,
+])
 class LocalDatabase extends _$LocalDatabase {
   LocalDatabase() : super(_openConnection());
 

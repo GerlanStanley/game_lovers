@@ -20,9 +20,9 @@ class RemoteGameDataSourceImpl implements IRemoteGameDataSource {
       List response = await _httpHelper.post(
         "/games",
         data: "fields name,platforms.name,genres.name,summary,cover.url,"
-            "cover.image_id,total_rating; "
-            "where platforms = ${input.platformId}; "
-            "sort total_rating desc; "
+            "cover.image_id,rating; "
+            "where platforms = (${input.platformId}) & total_rating_count > 100; "
+            "sort rating desc; "
             "limit ${input.limit}; "
             "offset ${input.offset};",
       );

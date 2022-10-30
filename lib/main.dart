@@ -66,6 +66,9 @@ class MyApp extends StatelessWidget {
         Provider<IRemoteGameDataSource>(
           create: (context) => RemoteGameDataSourceImpl(context.read()),
         ),
+        Provider<ILocalGameDataSource>(
+          create: (context) => LocalGameDataSourceImpl(context.read()),
+        ),
 
         // Repositories
         Provider<IPlatformRepository>(
@@ -75,7 +78,10 @@ class MyApp extends StatelessWidget {
           ),
         ),
         Provider<IGameRepository>(
-          create: (context) => GameRepositoryImpl(context.read()),
+          create: (context) => GameRepositoryImpl(
+            context.read(),
+            context.read(),
+          ),
         ),
 
         // UseCases

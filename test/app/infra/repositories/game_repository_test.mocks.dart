@@ -7,6 +7,8 @@ import 'dart:async' as _i3;
 
 import 'package:game_lovers/app/domain/dtos/dtos.dart' as _i5;
 import 'package:game_lovers/app/domain/entities/entities.dart' as _i4;
+import 'package:game_lovers/app/infra/data_sources/local/local_game_data_source.dart'
+    as _i6;
 import 'package:game_lovers/app/infra/data_sources/remote/remote_game_data_source.dart'
     as _i2;
 import 'package:mockito/mockito.dart' as _i1;
@@ -42,4 +44,36 @@ class MockIRemoteGameDataSource extends _i1.Mock
         ),
         returnValue: _i3.Future<List<_i4.GameEntity>>.value(<_i4.GameEntity>[]),
       ) as _i3.Future<List<_i4.GameEntity>>);
+}
+
+/// A class which mocks [ILocalGameDataSource].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockILocalGameDataSource extends _i1.Mock
+    implements _i6.ILocalGameDataSource {
+  MockILocalGameDataSource() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Future<List<_i4.GameEntity>> getAll(
+          {required _i5.GetAllGamesInputDto? input}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getAll,
+          [],
+          {#input: input},
+        ),
+        returnValue: _i3.Future<List<_i4.GameEntity>>.value(<_i4.GameEntity>[]),
+      ) as _i3.Future<List<_i4.GameEntity>>);
+  @override
+  _i3.Future<bool> saveAll({required List<_i4.GameEntity>? games}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #saveAll,
+          [],
+          {#games: games},
+        ),
+        returnValue: _i3.Future<bool>.value(false),
+      ) as _i3.Future<bool>);
 }

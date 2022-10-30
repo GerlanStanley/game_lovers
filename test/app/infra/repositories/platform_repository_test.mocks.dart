@@ -62,12 +62,12 @@ class MockILocalPlatformDataSource extends _i1.Mock
             _i3.Future<List<_i4.PlatformEntity>>.value(<_i4.PlatformEntity>[]),
       ) as _i3.Future<List<_i4.PlatformEntity>>);
   @override
-  _i3.Future<bool> saveAll({required List<_i4.PlatformEntity>? games}) =>
+  _i3.Future<bool> saveAll({required List<_i4.PlatformEntity>? platforms}) =>
       (super.noSuchMethod(
         Invocation.method(
           #saveAll,
           [],
-          {#games: games},
+          {#platforms: platforms},
         ),
         returnValue: _i3.Future<bool>.value(false),
       ) as _i3.Future<bool>);

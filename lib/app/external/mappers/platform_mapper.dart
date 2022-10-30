@@ -1,3 +1,5 @@
+import 'package:drift/drift.dart';
+
 import '../../domain/entities/entities.dart';
 
 import '../drift/database.dart';
@@ -22,6 +24,17 @@ class PlatformMapper {
     return PlatformEntity(
       id: int.parse(item.id),
       name: item.name,
+    );
+  }
+
+  static List<PlatformEntity> fromListTypedResult(List<TypedResult> list) {
+    return list.map((element) => fromTypedResult(element)).toList();
+  }
+
+  static PlatformEntity fromTypedResult(TypedResult result) {
+    return PlatformEntity(
+      id: int.parse(result.rawData.data["platforms.id"]),
+      name: result.rawData.data["platforms.name"],
     );
   }
 }
