@@ -34,17 +34,38 @@ void main() {
     );
   });
 
-  test("Deve retornar uma List<PlatformEntity>", () async {
-    when(remoteDataSource.getAll()).thenAnswer((_) async => []);
+  test(
+    "Deve chamar remoteDataSource quando tiver com internet "
+    "e retornar um List<PlatformEntity>",
+    () async {
+      when(internetDriver.isConnected()).thenAnswer((_) async => true);
+      when(remoteDataSource.getAll()).thenAnswer((_) async => []);
+      when(localDataSource.saveAll(platforms: []))
+          .thenAnswer((_) async => true);
 
-    var result = await repository.getAll();
+      var result = await repository.getAll();
 
-    expect(result.fold(id, id), isA<List<PlatformEntity>>());
-  });
+      expect(result.fold(id, id), isA<List<PlatformEntity>>());
+    },
+  );
+
+  test(
+    "Deve chamar localDataSource quando tiver sem internet "
+    "e retornar um List<PlatformEntity>",
+    () async {
+      when(internetDriver.isConnected()).thenAnswer((_) async => false);
+      when(localDataSource.getAll()).thenAnswer((_) async => []);
+
+      var result = await repository.getAll();
+
+      expect(result.fold(id, id), isA<List<PlatformEntity>>());
+    },
+  );
 
   test(
     "Deve retornar um ParseDtoFailure quando lançar ParseDtoFailure",
     () async {
+      when(internetDriver.isConnected()).thenAnswer((_) async => true);
       when(remoteDataSource.getAll()).thenThrow(Failure(message: ""));
 
       var result = await repository.getAll();
