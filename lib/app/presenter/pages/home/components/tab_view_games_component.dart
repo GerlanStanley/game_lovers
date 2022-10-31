@@ -7,19 +7,19 @@ import '../../../widgets/widgets.dart';
 
 import 'components.dart';
 
-class TabGamesComponent extends StatefulWidget {
+class TabViewGamesComponent extends StatefulWidget {
   final int platformId;
 
-  const TabGamesComponent({
+  const TabViewGamesComponent({
     Key? key,
     required this.platformId,
   }) : super(key: key);
 
   @override
-  State<TabGamesComponent> createState() => _TabGamesComponentState();
+  State<TabViewGamesComponent> createState() => _TabViewGamesComponentState();
 }
 
-class _TabGamesComponentState extends State<TabGamesComponent> {
+class _TabViewGamesComponentState extends State<TabViewGamesComponent> {
   late final GamesBloc bloc;
 
   @override

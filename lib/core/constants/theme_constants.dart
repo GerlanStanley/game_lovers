@@ -18,8 +18,8 @@ class ThemeConstants {
       iconTheme: IconThemeData(color: ColorsConstantsLight.appBarIcon),
       titleTextStyle: TextStyle(
         color: ColorsConstantsLight.appBarText,
-        fontWeight: FontWeight.normal,
-        fontSize: 20,
+        fontWeight: FontWeight.w700,
+        fontSize: 24,
         fontFamily: "NunitoSans",
       ),
     ),
@@ -27,17 +27,25 @@ class ThemeConstants {
       labelColor: ColorsConstantsLight.tabBarSelectedText,
       unselectedLabelColor: ColorsConstantsLight.tabBarUnselectedText,
       unselectedLabelStyle: TextStyle(
-        color: ColorsConstantsLight.tabBarUnselectedText,
-        fontFamily: "NunitoSans",
-        fontWeight: FontWeight.w700,
-      ),
-      labelStyle: TextStyle(
         color: ColorsConstantsLight.tabBarSelectedText,
         fontFamily: "NunitoSans",
         fontWeight: FontWeight.w700,
+        fontSize: 14,
+      ),
+      labelStyle: TextStyle(
+        color: ColorsConstantsLight.primary,
+        fontFamily: "NunitoSans",
+        fontWeight: FontWeight.w700,
+        fontSize: 14,
       ),
     ),
     textTheme: const TextTheme(
+      headline1: TextStyle(
+        color: ColorsConstantsLight.text,
+        fontWeight: FontWeight.bold,
+        fontSize: 14,
+        fontFamily: "NunitoSans",
+      ),
       headline6: TextStyle(
         color: ColorsConstantsLight.text,
         fontWeight: FontWeight.w800,
@@ -46,7 +54,7 @@ class ThemeConstants {
       ),
       subtitle1: TextStyle(
         color: ColorsConstantsLight.text,
-        fontWeight: FontWeight.w800,
+        fontWeight: FontWeight.w700,
         fontSize: 20,
         fontFamily: "NunitoSans",
       ),
@@ -92,8 +100,8 @@ class ThemeConstants {
       iconTheme: IconThemeData(color: ColorsConstantsDark.appBarIcon),
       titleTextStyle: TextStyle(
         color: ColorsConstantsDark.appBarText,
-        fontWeight: FontWeight.normal,
-        fontSize: 20,
+        fontWeight: FontWeight.w700,
+        fontSize: 24,
         fontFamily: "NunitoSans",
       ),
     ),
@@ -101,17 +109,25 @@ class ThemeConstants {
       labelColor: ColorsConstantsDark.tabBarSelectedText,
       unselectedLabelColor: ColorsConstantsDark.tabBarUnselectedText,
       unselectedLabelStyle: TextStyle(
-        color: ColorsConstantsDark.tabBarUnselectedText,
-        fontFamily: "NunitoSans",
-        fontWeight: FontWeight.w700,
-      ),
-      labelStyle: TextStyle(
         color: ColorsConstantsDark.tabBarSelectedText,
         fontFamily: "NunitoSans",
         fontWeight: FontWeight.w700,
+        fontSize: 14,
+      ),
+      labelStyle: TextStyle(
+        color: ColorsConstantsDark.primary,
+        fontFamily: "NunitoSans",
+        fontWeight: FontWeight.w700,
+        fontSize: 14,
       ),
     ),
     textTheme: const TextTheme(
+      headline1: TextStyle(
+        color: ColorsConstantsDark.text,
+        fontWeight: FontWeight.bold,
+        fontSize: 14,
+        fontFamily: "NunitoSans",
+      ),
       headline6: TextStyle(
         color: ColorsConstantsDark.text,
         fontWeight: FontWeight.w800,
@@ -120,7 +136,7 @@ class ThemeConstants {
       ),
       subtitle1: TextStyle(
         color: ColorsConstantsDark.text,
-        fontWeight: FontWeight.w800,
+        fontWeight: FontWeight.w700,
         fontSize: 20,
         fontFamily: "NunitoSans",
       ),

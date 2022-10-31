@@ -28,17 +28,20 @@ class GridViewComponent extends StatelessWidget {
         return false;
       },
       child: GridView.builder(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(16),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
+          crossAxisCount: 2,
           crossAxisSpacing: 12,
           mainAxisSpacing: 12,
-          childAspectRatio: 0.6,
+          childAspectRatio: 0.8,
         ),
         itemCount: list.length,
         itemBuilder: (context, index) {
           var game = list[index];
-          return GameItemComponent(game: game);
+          return Hero(
+            tag: "game${game.id}",
+            child: GameItemComponent(game: game),
+          );
         },
       ),
     );

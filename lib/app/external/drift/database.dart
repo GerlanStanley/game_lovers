@@ -76,7 +76,8 @@ class GamePlatformEntries extends Table {
   GamePlatformEntries,
 ])
 class LocalDatabase extends _$LocalDatabase {
-  LocalDatabase() : super(_openConnection());
+  LocalDatabase({QueryExecutor? queryExecutor})
+      : super(queryExecutor ?? _openConnection());
 
   @override
   int get schemaVersion => 1;

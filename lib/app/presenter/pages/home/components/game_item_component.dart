@@ -1,3 +1,4 @@
+import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/constants/constants.dart';
@@ -17,7 +18,7 @@ class GameItemComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var borderRadius = const BorderRadius.all(Radius.circular(8));
+    var borderRadius = const BorderRadius.all(Radius.circular(20));
     return CardWidget(
       padding: const EdgeInsets.all(0),
       borderRadius: borderRadius,
@@ -38,36 +39,49 @@ class GameItemComponent extends StatelessWidget {
                     image: "${ApiConstants.apiUrlImagePrefix}"
                         "${game.cover!.imageId}.jpg",
                     fit: BoxFit.cover,
+                    borderRadius: borderRadius,
                   )
                 : Container(),
-            Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.transparent,
-                    Color(0xAA000000),
-                  ],
-                ),
-              ),
-              child: Align(
-                alignment: Alignment.bottomLeft,
-                child: Container(
-                  margin: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
-                  child: Text(
-                    game.name,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                margin: const EdgeInsets.only(bottom: 12, left: 8, right: 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      game.name,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 3,
                     ),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
-                  ),
-                ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 8),
+                      child: Text(
+                        "Rating: ${game.rating.toStringAsFixed(2)}",
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 3,
+                      ),
+                    ),
+                  ],
+                ).frosted(
+                  blur: 2.5,
+                  frostColor: Colors.black12,
+                  borderRadius: BorderRadius.circular(20),
+                  padding: const EdgeInsets.all(12),
+                )
               ),
-            )
+            ),
           ],
         ),
       ),

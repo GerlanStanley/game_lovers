@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class ColorsConstantsLight {
   // App Colors
-  static const Color primary = Color(0xFF0077D1);
-  static const Color primaryDark = Color(0xFF0167B4);
+  static const Color primary = Color(0xFFe6294a);
+  static const Color primaryDark = Color(0xFFb8213b);
   static const Color background = Color(0xFFf2f4f5);
 
   // App Bar
@@ -25,7 +25,7 @@ class ColorsConstantsLight {
   static const Color textExtraLight = Color(0xFFc1c6c9);
 
   // Button Primary
-  static const Color primaryButtonBackground = Color(0xFF0077D1);
+  static const Color primaryButtonBackground = Color(0xFFe6294a);
   static const Color primaryButtonText = Color(0xFFFFFFFF);
   static const Color primaryButtonBackgroundDisabled = Color(0xFFAAAAAA);
 

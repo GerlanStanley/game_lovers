@@ -30,39 +30,39 @@ class CachedNetworkImageWidget extends StatelessWidget {
           height: height,
           child: image == null
               ? Container(
-            width: width,
-            height: height,
-            decoration: BoxDecoration(
-              color: Colors.grey,
-              borderRadius: borderRadius ?? BorderRadius.circular(12),
-            ),
-          )
-              : CachedNetworkImage(
-            imageUrl: image!,
-            fit: fit,
-            placeholder: (context, url) => Align(
-              alignment: Alignment.center,
-              child: SizedBox(
-                width: 30,
-                height: 30,
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    Theme.of(context).primaryColor,
+                  width: width,
+                  height: height,
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: borderRadius ?? BorderRadius.circular(12),
                   ),
+                )
+              : CachedNetworkImage(
+                  imageUrl: image!,
+                  fit: fit,
+                  placeholder: (context, url) => Align(
+                    alignment: Alignment.center,
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          Theme.of(context).primaryColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                  errorWidget: (context, url, error) {
+                    return Container(
+                      width: width,
+                      height: height,
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: borderRadius ?? BorderRadius.circular(12),
+                      ),
+                    );
+                  },
                 ),
-              ),
-            ),
-            errorWidget: (context, url, error) {
-              return Container(
-                width: width,
-                height: height,
-                decoration: BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius: borderRadius ?? BorderRadius.circular(12),
-                ),
-              );
-            },
-          ),
         ),
       ),
     );

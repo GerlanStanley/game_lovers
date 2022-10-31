@@ -1,9 +1,9 @@
+import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/constants/constants.dart';
-
 import '../../../domain/entities/entities.dart';
-import '../../widgets/widgets.dart';
+
+import 'components/components.dart';
 
 class GamePage extends StatelessWidget {
   final GameEntity game;
@@ -16,30 +16,73 @@ class GamePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            game.cover != null
-                ? CachedNetworkImageWidget(
-                    image: "${ApiConstants.apiUrlImagePrefix}"
-                        "${game.cover!.imageId}.jpg",
-                    fit: BoxFit.cover,
-                  )
-                : Container(),
-            const SizedBox(height: 20),
-            Text(game.name),
-            const SizedBox(height: 20),
-            game.genres.isNotEmpty
-                ? Text("Genres: ${game.genres.join(", ")}")
-                : Container(),
-            const SizedBox(height: 20),
-            Text("Platforms: ${game.platforms.join(", ")}"),
-            const SizedBox(height: 20),
-            game.summary != null ? Text(game.summary!) : Container(),
-          ],
-        ),
+      backgroundColor: Theme.of(context).cardColor,
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Hero(
+                  tag: "game${game.id}",
+                  child: ImageComponent(game: game),
+                ),
+                Container(
+                  transform: Matrix4.translationValues(0.0, -30.0, 0.0),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                  ),
+                  child: SingleChildScrollView(
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 20,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(
+                            game.name,
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                          const SizedBox(height: 20),
+                          SummaryComponent(game: game),
+                          const SizedBox(height: 20),
+                          GenresComponent(game: game),
+                          const SizedBox(height: 20),
+                          PlatformsComponent(game: game),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SafeArea(
+            top: true,
+            child: Container(
+              margin: const EdgeInsets.only(left: 8, top: 8),
+              child: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                ),
+              ).frosted(
+                blur: 2.5,
+                frostColor: Colors.black12,
+                borderRadius: BorderRadius.circular(20),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

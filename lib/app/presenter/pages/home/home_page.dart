@@ -33,10 +33,21 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PlatformsBloc, PlatformsState>(
+    return BlocConsumer<PlatformsBloc, PlatformsState>(
+      listener: (context, state) {
+        if (state is SuccessPlatformsState) {
+          tabController = TabController(
+            vsync: this,
+            length: state.platforms.length,
+          );
+          tabController?.addListener(() {
+            setState(() {});
+          });
+        }
+      },
       builder: (context, state) {
         Widget body = Container();
-        PreferredSizeWidget? tabBar;
+        Widget? tabBar;
 
         if (state is LoadingPlatformsState) {
           body = const LoadWidget();
@@ -54,38 +65,47 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             );
           }
 
-          tabController = TabController(
-            vsync: this,
-            length: state.platforms.length,
+          tabBar = TabBarComponent(
+            tabController: tabController!,
+            platforms: state.platforms,
           );
 
-          tabBar = TabBar(
-            isScrollable: true,
-            controller: tabController,
-            tabs: state.platforms
-                .map((element) => Tab(text: element.name))
-                .toList(),
-          );
-
-          body = TabBarView(
-            controller: tabController,
-            children: state.platforms
-                .map(
-                  (element) => Provider<GamesBloc>(
-                    create: (context) => GamesBloc(context.read()),
-                    child: TabGamesComponent(platformId: element.id),
-                  ),
-                )
-                .toList(),
+          body = Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(left: 16, top: 24),
+                child: Text(
+                  "Best rating",
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+              ),
+              Expanded(
+                child: TabBarView(
+                  controller: tabController,
+                  children: state.platforms
+                      .map(
+                        (element) => Provider<GamesBloc>(
+                          create: (context) => GamesBloc(context.read()),
+                          child: TabViewGamesComponent(platformId: element.id),
+                        ),
+                      )
+                      .toList(),
+                ),
+              ),
+            ],
           );
         }
 
         return Scaffold(
-          appBar: AppBar(
-            title: const Text("Game Lovers App"),
-            bottom: tabBar,
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const SafeArea(child: AppBarComponent()),
+              tabBar ?? Container(),
+              Expanded(child: body),
+            ],
           ),
-          body: body,
         );
       },
     );
