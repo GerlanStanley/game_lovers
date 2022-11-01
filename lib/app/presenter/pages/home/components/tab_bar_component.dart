@@ -26,6 +26,7 @@ class TabBarComponent extends StatelessWidget {
               TabPlatformComponent(
                 platform: platforms[i],
                 selected: i == tabController.index,
+                index: i,
                 onTap: () {
                   tabController.animateTo(i);
                 },

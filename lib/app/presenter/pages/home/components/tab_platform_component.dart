@@ -6,12 +6,14 @@ class TabPlatformComponent extends StatelessWidget {
   final PlatformEntity platform;
   final bool selected;
   final Function() onTap;
+  final int index;
 
   const TabPlatformComponent({
     Key? key,
     required this.platform,
     required this.selected,
     required this.onTap,
+    required this.index,
   }) : super(key: key);
 
   @override
@@ -22,6 +24,7 @@ class TabPlatformComponent extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         child: InkWell(
+          key: Key("tab_platform_$index"),
           onTap: onTap,
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

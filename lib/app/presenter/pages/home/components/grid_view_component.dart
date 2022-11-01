@@ -40,7 +40,10 @@ class GridViewComponent extends StatelessWidget {
           var game = list[index];
           return Hero(
             tag: "game${game.id}",
-            child: GameItemComponent(game: game),
+            child: GameItemComponent(
+              key: Key("game_item_component_$index"),
+              game: game,
+            ),
           );
         },
       ),
