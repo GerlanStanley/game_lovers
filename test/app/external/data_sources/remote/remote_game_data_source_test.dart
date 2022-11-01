@@ -11,7 +11,7 @@ import 'package:game_lovers/core/failures/failures.dart';
 import 'package:game_lovers/app/infra/data_sources/data_sources.dart';
 import 'package:game_lovers/core/helpers/http/http.dart';
 
-import 'game_data_source_test.mocks.dart';
+import 'remote_game_data_source_test.mocks.dart';
 
 @GenerateMocks([IHttpHelper])
 void main() {

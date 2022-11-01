@@ -72,11 +72,7 @@ class LocalGameDataSourceImpl implements ILocalGameDataSource {
     final query = _database.select(_database.genres).join([
       innerJoin(
         _database.gameGenreEntries,
-        _database.gameGenreEntries.game.equalsExp(_database.games.id),
-      ),
-      innerJoin(
-        _database.games,
-        _database.games.id.equalsExp(_database.gameGenreEntries.game),
+        _database.gameGenreEntries.genre.equalsExp(_database.genres.id),
       ),
     ]);
 
@@ -98,11 +94,9 @@ class LocalGameDataSourceImpl implements ILocalGameDataSource {
     final query = _database.select(_database.platforms).join([
       innerJoin(
         _database.gamePlatformEntries,
-        _database.gamePlatformEntries.game.equalsExp(_database.games.id),
-      ),
-      innerJoin(
-        _database.games,
-        _database.games.id.equalsExp(_database.gamePlatformEntries.game),
+        _database.gamePlatformEntries.platform.equalsExp(
+          _database.platforms.id,
+        ),
       ),
     ]);
 
@@ -190,8 +184,10 @@ class LocalGameDataSourceImpl implements ILocalGameDataSource {
           }
         }
       });
+
       return response == 1;
     } catch (e, stackTrace) {
+      printDebug(e);
       printDebug(stackTrace);
       throw UnknownFailure(
         message: "Erro ao inserir dados local",
