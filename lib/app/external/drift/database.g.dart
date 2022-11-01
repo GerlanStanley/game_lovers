@@ -596,7 +596,7 @@ class $GamesTable extends Games with TableInfo<$GamesTable, Game> {
       'cover', aliasedName, true,
       type: DriftSqlType.string,
       requiredDuringInsert: false,
-      defaultConstraints: 'REFERENCES "covers" ("id")');
+      defaultConstraints: 'REFERENCES covers (id)');
   @override
   List<GeneratedColumn> get $columns => [id, name, summary, rating, cover];
   @override
@@ -951,14 +951,14 @@ class $GameGenreEntriesTable extends GameGenreEntries
       'game', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
-      defaultConstraints: 'REFERENCES "games" ("id")');
+      defaultConstraints: 'REFERENCES games (id)');
   final VerificationMeta _genreMeta = const VerificationMeta('genre');
   @override
   late final GeneratedColumn<String> genre = GeneratedColumn<String>(
       'genre', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
-      defaultConstraints: 'REFERENCES "genres" ("id")');
+      defaultConstraints: 'REFERENCES genres (id)');
   @override
   List<GeneratedColumn> get $columns => [game, genre];
   @override
@@ -1129,14 +1129,14 @@ class $GamePlatformEntriesTable extends GamePlatformEntries
       'game', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
-      defaultConstraints: 'REFERENCES "games" ("id")');
+      defaultConstraints: 'REFERENCES games (id)');
   final VerificationMeta _platformMeta = const VerificationMeta('platform');
   @override
   late final GeneratedColumn<String> platform = GeneratedColumn<String>(
       'platform', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
-      defaultConstraints: 'REFERENCES "platforms" ("id")');
+      defaultConstraints: 'REFERENCES platforms (id)');
   @override
   List<GeneratedColumn> get $columns => [game, platform];
   @override
