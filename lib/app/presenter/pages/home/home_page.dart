@@ -16,18 +16,20 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late final PlatformsBloc bloc;
-  TabController? tabController;
+  late TabController tabController;
 
   @override
   void initState() {
     super.initState();
+    tabController = TabController(vsync: this, length: 0);
+
     bloc = context.read<PlatformsBloc>();
     bloc.add(GetAllPlatformsEvent());
   }
 
   @override
   void dispose() {
-    tabController?.dispose();
+    tabController.dispose();
     super.dispose();
   }
 
@@ -40,7 +42,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             vsync: this,
             length: state.platforms.length,
           );
-          tabController?.addListener(() {
+          tabController.addListener(() {
             setState(() {});
           });
         }
@@ -66,7 +68,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           }
 
           tabBar = TabBarComponent(
-            tabController: tabController!,
+            tabController: tabController,
             platforms: state.platforms,
           );
 

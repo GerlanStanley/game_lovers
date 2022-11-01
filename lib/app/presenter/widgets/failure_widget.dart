@@ -24,7 +24,7 @@ class FailureWidget extends StatelessWidget {
           children: [
             Icon(
               Icons.warning_amber_rounded,
-              color: Theme.of(context).textTheme.subtitle2!.color,
+              color: Theme.of(context).textTheme.subtitle2?.color,
               size: 80,
             ),
             Container(

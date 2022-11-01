@@ -38,6 +38,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   bloc_test:
   mockito:
+  mocktail:
   faker: ^2.0.0
   drift_dev:
   build_runner:
