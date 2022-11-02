@@ -27,7 +27,11 @@ void main() {
     "Deve retornar um Right(List<GameEntity>) quando o repository "
     "retornar um Right(List<GameEntity>)",
     () async {
-      var input = GetAllGamesInputDto(platformId: 1, limit: 20, offset: 0);
+      var input = const GetAllGamesInputDto(
+        platformId: 1,
+        limit: 20,
+        offset: 0,
+      );
       when(repository.getAll(input: anyNamed("input"))).thenAnswer((_) async {
         List<GameEntity> games = [];
         for (int i = 0; i < 3; i++) {
@@ -69,7 +73,11 @@ void main() {
     "Deve retornar um Left(GetAllGamesPlatformFailure) "
     "quando o platformId for menor que 1",
     () async {
-      var input = GetAllGamesInputDto(platformId: 0, limit: 20, offset: 0);
+      var input = const GetAllGamesInputDto(
+        platformId: 0,
+        limit: 20,
+        offset: 0,
+      );
 
       var result = await useCase(input: input);
 
@@ -81,7 +89,11 @@ void main() {
     "Deve retornar um Left(GetAllGamesLimitFailure) "
     "quando o limit for menor que 1",
     () async {
-      var input = GetAllGamesInputDto(platformId: 1, limit: 0, offset: 0);
+      var input = const GetAllGamesInputDto(
+        platformId: 1,
+        limit: 0,
+        offset: 0,
+      );
 
       var result = await useCase(input: input);
 
@@ -93,7 +105,11 @@ void main() {
     "Deve retornar um Left(GetAllGamesLimitFailure) "
     "quando o limit for maior que 500",
     () async {
-      var input = GetAllGamesInputDto(platformId: 1, limit: 501, offset: 0);
+      var input = const GetAllGamesInputDto(
+        platformId: 1,
+        limit: 501,
+        offset: 0,
+      );
 
       var result = await useCase(input: input);
 
@@ -105,7 +121,11 @@ void main() {
     "Deve retornar um Left(GetAllGamesOffsetFailure) "
     "quando o limit for menor que 0",
     () async {
-      var input = GetAllGamesInputDto(platformId: 1, limit: 10, offset: -1);
+      var input = const GetAllGamesInputDto(
+        platformId: 1,
+        limit: 10,
+        offset: -1,
+      );
 
       var result = await useCase(input: input);
 
@@ -117,7 +137,11 @@ void main() {
     "Deve retornar um Left(Failure) quando o repository "
     "retornar um Left(Failure)",
     () async {
-      var input = GetAllGamesInputDto(platformId: 1, limit: 20, offset: 0);
+      var input = const GetAllGamesInputDto(
+        platformId: 1,
+        limit: 20,
+        offset: 0,
+      );
 
       when(repository.getAll(input: anyNamed('input'))).thenAnswer((_) async {
         return Left<Failure, List<GameEntity>>(

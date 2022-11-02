@@ -64,7 +64,7 @@ void main() {
 
     await dataSource.saveAll(games: games);
     final getGames = await dataSource.getAll(
-      input: GetAllGamesInputDto(
+      input: const GetAllGamesInputDto(
         platformId: 1,
         offset: 0,
         limit: 100,

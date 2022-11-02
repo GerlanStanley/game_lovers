@@ -8,7 +8,7 @@ import 'package:game_lovers/app/presenter/pages/home/components/components.dart'
 
 import 'package:game_lovers/main.dart' as app;
 
-void main() {
+void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   testWidgets(

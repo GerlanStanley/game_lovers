@@ -8,7 +8,6 @@ import 'package:game_lovers/app/domain/dtos/dtos.dart';
 import 'package:game_lovers/app/domain/entities/entities.dart';
 import 'package:game_lovers/app/external/data_sources/data_sources.dart';
 import 'package:game_lovers/core/failures/failures.dart';
-import 'package:game_lovers/app/infra/data_sources/data_sources.dart';
 import 'package:game_lovers/core/helpers/http/http.dart';
 
 import 'remote_game_data_source_test.mocks.dart';
@@ -16,13 +15,13 @@ import 'remote_game_data_source_test.mocks.dart';
 @GenerateMocks([IHttpHelper])
 void main() {
   late MockIHttpHelper httpHelper;
-  late IRemoteGameDataSource dataSource;
+  late RemoteGameDataSourceImpl dataSource;
   late GetAllGamesInputDto input;
 
   setUp(() {
     httpHelper = MockIHttpHelper();
     dataSource = RemoteGameDataSourceImpl(httpHelper);
-    input = GetAllGamesInputDto(platformId: 1, limit: 20, offset: 0);
+    input = const GetAllGamesInputDto(platformId: 1, limit: 20, offset: 0);
   });
 
   test("Deve retornar uma List<GameEntity>", () async {
@@ -74,9 +73,9 @@ void main() {
 }
 
 const String data = "fields name,platforms.name,genres.name,summary,cover.url,"
-    "cover.image_id,total_rating; "
-    "where platforms = 1; "
-    "sort total_rating desc; "
+    "cover.image_id,rating; "
+    "where platforms = (1) & total_rating_count > 100; "
+    "sort rating desc; "
     "limit 20; "
     "offset 0;";
 
@@ -96,6 +95,7 @@ final successJson = jsonDecode(r'''
             }
         ],
         "name": "Super Mario Star Road: The Green Comet",
+        "rating": 90.5,
         "platforms": [
             {
                 "id": 4,
