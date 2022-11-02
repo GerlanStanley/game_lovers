@@ -60,43 +60,46 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           );
         } else if (state is SuccessPlatformsState) {
           if (state.platforms.isEmpty) {
-            body = const EmptyWidget(
+            body = EmptyWidget(
               iconData: Icons.videogame_asset_outlined,
               title: "No platform",
               subtitle: "We didn't find any platform in the database",
+              onPressed: () => bloc.add(GetAllPlatformsEvent()),
+            );
+          } else {
+            tabBar = TabBarComponent(
+              tabController: tabController,
+              platforms: state.platforms,
+            );
+
+            body = Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(left: 16, top: 24),
+                  child: Text(
+                    "Best rating",
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
+                ),
+                Expanded(
+                  child: TabBarView(
+                    controller: tabController,
+                    children: state.platforms
+                        .map(
+                          (element) => Provider<GamesBloc>(
+                            create: (context) => GamesBloc(context.read()),
+                            child: TabViewGamesComponent(
+                              platformId: element.id,
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  ),
+                ),
+              ],
             );
           }
-
-          tabBar = TabBarComponent(
-            tabController: tabController,
-            platforms: state.platforms,
-          );
-
-          body = Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(left: 16, top: 24),
-                child: Text(
-                  "Best rating",
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-              ),
-              Expanded(
-                child: TabBarView(
-                  controller: tabController,
-                  children: state.platforms
-                      .map(
-                        (element) => Provider<GamesBloc>(
-                          create: (context) => GamesBloc(context.read()),
-                          child: TabViewGamesComponent(platformId: element.id),
-                        ),
-                      )
-                      .toList(),
-                ),
-              ),
-            ],
-          );
         }
 
         return Scaffold(

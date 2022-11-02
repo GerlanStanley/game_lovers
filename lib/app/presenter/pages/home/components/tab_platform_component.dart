@@ -21,7 +21,7 @@ class TabPlatformComponent extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 4),
       child: Material(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16),
         child: InkWell(
           key: Key("tab_platform_$index"),

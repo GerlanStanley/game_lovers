@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,6 +14,7 @@ import 'app/infra/data_sources/data_sources.dart';
 import 'app/infra/drivers/drivers.dart';
 import 'app/infra/repositories/repositories.dart';
 import 'app/presenter/blocs/platforms/platforms.dart';
+import 'app/presenter/blocs/theme/theme.dart';
 import 'app/presenter/pages/home/home.dart';
 import 'core/constants/constants.dart';
 import 'core/helpers/http/http.dart';
@@ -63,12 +65,11 @@ class MyApp extends StatelessWidget {
         ),
 
         // DataSources
+        Provider<ILocalIsDarkDataSource>(
+          create: (context) => LocalIsDarkDataSourceImpl(context.read()),
+        ),
         Provider<IRemotePlatformDataSource>(
           create: (context) => RemotePlatformDataSourceImpl(context.read()),
-        ),
-        // Drivers
-        Provider<IInternetDriver>(
-          create: (context) => InternetDriverImpl(context.read()),
         ),
         Provider<ILocalPlatformDataSource>(
           create: (context) => LocalPlatformDataSourceImpl(context.read()),
@@ -79,8 +80,15 @@ class MyApp extends StatelessWidget {
         Provider<ILocalGameDataSource>(
           create: (context) => LocalGameDataSourceImpl(context.read()),
         ),
+        // Drivers
+        Provider<IInternetDriver>(
+          create: (context) => InternetDriverImpl(context.read()),
+        ),
 
         // Repositories
+        Provider<IIsDarkRepository>(
+          create: (context) => IsDarkRepositoryImpl(context.read()),
+        ),
         Provider<IPlatformRepository>(
           create: (context) => PlatformRepositoryImpl(
             context.read(),
@@ -97,6 +105,12 @@ class MyApp extends StatelessWidget {
         ),
 
         // UseCases
+        Provider<IGetIsDarkUseCase>(
+          create: (context) => GetIsDarkUseCaseImpl(context.read()),
+        ),
+        Provider<ISaveIsDarkUseCase>(
+          create: (context) => SaveIsDarkUseCaseImpl(context.read()),
+        ),
         Provider<IGetAllPlatformsUseCase>(
           create: (context) => GetAllPlatformsUseCaseImpl(context.read()),
         ),
@@ -105,14 +119,24 @@ class MyApp extends StatelessWidget {
         ),
 
         // Blocs
+        Provider<ThemeBloc>(
+          create: (context) => ThemeBloc(context.read(), context.read())
+            ..add(
+              InitialThemeEvent(),
+            ),
+        ),
         Provider<PlatformsBloc>(
           create: (context) => PlatformsBloc(context.read()),
         ),
       ],
-      child: MaterialApp(
-        title: "Game Lovers App",
-        theme: ThemeConstants.light,
-        home: const HomePage(),
+      child: BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (BuildContext context, ThemeState state) {
+          return MaterialApp(
+            title: "Game Lovers App",
+            theme: state.isDark ? ThemeConstants.dark : ThemeConstants.light,
+            home: const HomePage(),
+          );
+        },
       ),
     );
   }

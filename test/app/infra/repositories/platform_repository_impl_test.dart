@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:game_lovers/app/domain/dtos/dtos.dart';
 import 'package:game_lovers/app/domain/entities/entities.dart';
 import 'package:game_lovers/app/domain/repositories/repositories.dart';
 import 'package:game_lovers/app/infra/data_sources/data_sources.dart';
@@ -11,54 +10,55 @@ import 'package:game_lovers/app/infra/drivers/drivers.dart';
 import 'package:game_lovers/app/infra/repositories/repositories.dart';
 import 'package:game_lovers/core/failures/failures.dart';
 
-import 'game_repository_test.mocks.dart';
+import 'platform_repository_impl_test.mocks.dart';
 
-@GenerateMocks([IRemoteGameDataSource, ILocalGameDataSource, IInternetDriver])
+@GenerateMocks([
+  IRemotePlatformDataSource,
+  ILocalPlatformDataSource,
+  IInternetDriver,
+])
 void main() {
-  late MockIRemoteGameDataSource remoteDataSource;
-  late MockILocalGameDataSource localDataSource;
+  late MockIRemotePlatformDataSource remoteDataSource;
+  late MockILocalPlatformDataSource localDataSource;
   late MockIInternetDriver internetDriver;
-  late IGameRepository repository;
-  late GetAllGamesInputDto input;
+  late IPlatformRepository repository;
 
   setUp(() {
-    remoteDataSource = MockIRemoteGameDataSource();
-    localDataSource = MockILocalGameDataSource();
+    remoteDataSource = MockIRemotePlatformDataSource();
+    localDataSource = MockILocalPlatformDataSource();
     internetDriver = MockIInternetDriver();
-    repository = GameRepositoryImpl(
+    repository = PlatformRepositoryImpl(
       remoteDataSource,
       localDataSource,
       internetDriver,
     );
-    input = GetAllGamesInputDto(platformId: 1, limit: 20, offset: 0);
   });
 
   test(
     "Deve chamar remoteDataSource quando tiver com internet "
-    "e retornar uma List<GameEntity>",
+    "e retornar um List<PlatformEntity>",
     () async {
       when(internetDriver.isConnected()).thenAnswer((_) async => true);
-      when(remoteDataSource.getAll(input: anyNamed("input")))
-          .thenAnswer((_) async => []);
-      when(localDataSource.saveAll(games: [])).thenAnswer((_) async => true);
+      when(remoteDataSource.getAll()).thenAnswer((_) async => []);
+      when(localDataSource.saveAll(platforms: []))
+          .thenAnswer((_) async => true);
 
-      var result = await repository.getAll(input: input);
+      var result = await repository.getAll();
 
-      expect(result.fold(id, id), isA<List<GameEntity>>());
+      expect(result.fold(id, id), isA<List<PlatformEntity>>());
     },
   );
 
   test(
     "Deve chamar localDataSource quando tiver sem internet "
-    "e retornar uma List<GameEntity>",
+    "e retornar um List<PlatformEntity>",
     () async {
       when(internetDriver.isConnected()).thenAnswer((_) async => false);
-      when(localDataSource.getAll(input: anyNamed("input")))
-          .thenAnswer((_) async => []);
+      when(localDataSource.getAll()).thenAnswer((_) async => []);
 
-      var result = await repository.getAll(input: input);
+      var result = await repository.getAll();
 
-      expect(result.fold(id, id), isA<List<GameEntity>>());
+      expect(result.fold(id, id), isA<List<PlatformEntity>>());
     },
   );
 
@@ -66,10 +66,9 @@ void main() {
     "Deve retornar um ParseDtoFailure quando lançar ParseDtoFailure",
     () async {
       when(internetDriver.isConnected()).thenAnswer((_) async => true);
-      when(remoteDataSource.getAll(input: anyNamed("input")))
-          .thenThrow(Failure(message: ""));
+      when(remoteDataSource.getAll()).thenThrow(Failure(message: ""));
 
-      var result = await repository.getAll(input: input);
+      var result = await repository.getAll();
 
       expect(result.fold(id, id), isA<Failure>());
     },

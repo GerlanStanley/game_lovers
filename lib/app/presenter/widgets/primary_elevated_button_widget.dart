@@ -20,7 +20,7 @@ class PrimaryElevatedButtonWidget extends StatelessWidget {
     this.leading,
     this.trailing,
     this.onPressed,
-    this.height = 60,
+    this.height = 50,
     this.margin,
     this.padding = const EdgeInsets.symmetric(horizontal: 20),
     this.borderRadius = const BorderRadius.all(Radius.circular(10)),

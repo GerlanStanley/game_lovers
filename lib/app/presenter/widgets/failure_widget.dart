@@ -46,7 +46,7 @@ class FailureWidget extends StatelessWidget {
             Container(
               margin: const EdgeInsets.only(top: 20),
               child: PrimaryElevatedButtonWidget(
-                text: "Tentar novamente",
+                text: "Touch to reaload",
                 onPressed: onPressed,
               ),
             )

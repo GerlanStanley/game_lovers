@@ -1,7 +1,10 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../domain/entities/entities.dart';
+
+import '../../blocs/theme/theme.dart';
 
 import 'components/components.dart';
 
@@ -15,8 +18,11 @@ class GamePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var themeBloc = context.read<ThemeBloc>();
     return Scaffold(
-      backgroundColor: Theme.of(context).cardColor,
+      backgroundColor: themeBloc.state.isDark
+          ? Theme.of(context).backgroundColor
+          : Theme.of(context).cardColor,
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -29,9 +35,11 @@ class GamePage extends StatelessWidget {
                 ),
                 Container(
                   transform: Matrix4.translationValues(0.0, -30.0, 0.0),
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
+                  decoration: BoxDecoration(
+                    color: themeBloc.state.isDark
+                        ? Theme.of(context).backgroundColor
+                        : Theme.of(context).cardColor,
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20),
                     ),

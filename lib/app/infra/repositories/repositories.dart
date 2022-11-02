@@ -1,2 +1,3 @@
-export 'game_repository.dart';
-export 'platform_repository.dart';
+export 'game_repository_impl.dart';
+export 'is_dark_repository_impl.dart';
+export 'platform_repository_impl.dart';

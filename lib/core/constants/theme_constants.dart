@@ -109,7 +109,7 @@ class ThemeConstants {
       labelColor: ColorsConstantsDark.tabBarSelectedText,
       unselectedLabelColor: ColorsConstantsDark.tabBarUnselectedText,
       unselectedLabelStyle: TextStyle(
-        color: ColorsConstantsDark.tabBarSelectedText,
+        color: ColorsConstantsDark.tabBarUnselectedText,
         fontFamily: "NunitoSans",
         fontWeight: FontWeight.w700,
         fontSize: 14,

@@ -56,10 +56,13 @@ class _TabViewGamesComponentState extends State<TabViewGamesComponent> {
             )),
           );
         } else if (state is SuccessGamesState && state.games.isEmpty) {
-          return const EmptyWidget(
+          return EmptyWidget(
             iconData: Icons.videogame_asset_outlined,
             title: "No game",
             subtitle: "We couldn't find any games in the database",
+            onPressed: () => bloc.add(GetAllGamesEvent(
+              platformId: widget.platformId,
+            )),
           );
         }
 
