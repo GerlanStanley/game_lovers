@@ -51,7 +51,7 @@ Passo 5: Para testes da lib Drift/Moor é necessário instalar a biblioteca sqli
 ## Screenshots
 <p float="left">
     <img src="./screenshots/1.png" width="400" />
-    <img src="./screenshots/1.png" width="400" /> 
+    <img src="./screenshots/2.png" width="400" /> 
 </p>
 <p float="left">
     <img src="./screenshots/3.png" width="400" />
