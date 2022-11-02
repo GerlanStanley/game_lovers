@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/extensions/extensions.dart';
+
 import '../../../domain/use_cases/use_cases.dart';
 
 import 'theme.dart';
@@ -19,10 +21,12 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
     Emitter<ThemeState> emit,
   ) async {
     var result = _getIsDarkUseCase();
-    result.fold(
-      (left) => null,
-      (right) => emit(ThemeState(isDark: right)),
-    );
+
+    if (result.isLeft()) {
+      emit(ThemeState(isDark: false));
+    } else {
+      emit(ThemeState(isDark: result.asRight()));
+    }
   }
 
   Future<void> _onChange(
