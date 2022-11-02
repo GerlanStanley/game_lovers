@@ -21,6 +21,7 @@ class AppBarComponent extends StatelessWidget {
             ),
           ),
           IconButton(
+            key: const Key("theme_button"),
             onPressed: () {
               bloc.add(ChangeThemeEvent());
             },

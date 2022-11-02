@@ -103,6 +103,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         }
 
         return Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
