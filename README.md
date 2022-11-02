@@ -49,5 +49,5 @@ Passo 5: Para testes da lib Drift/Moor é necessário instalar a biblioteca sqli
 - No Windows, você pode [baixar 'Binários pré-compilados para Windows'](https://www.sqlite.org/download.html) e extrair sqlite3.dll para uma pasta que está em sua variável de ambiente PATH. Em seguida, reinicie o dispositivo para garantir que todos os aplicativos sejam executados com essa alteração PATH.
 
 ## Screenshots
-![Alt text](./screenshots/1.png?raw=true "") ![Alt text](./screenshots/2.png?raw=true "")
-![Alt text](./screenshots/3.png?raw=true "") ![Alt text](./screenshots/4.png?raw=true "")
+![Alt text](./screenshots/1.png?raw=true) | ![Alt text](./screenshots/2.png?raw=true)
+![Alt text](./screenshots/3.png?raw=true) | ![Alt text](./screenshots/4.png?raw=true)
