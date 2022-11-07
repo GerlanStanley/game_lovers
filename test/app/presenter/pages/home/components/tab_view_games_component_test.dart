@@ -93,7 +93,7 @@ void main() {
   );
 
   testWidgets(
-    "Deve exibir o widget TabBarComponent quando "
+    "Deve exibir o widget EmptyWidget quando "
     "o estado do bloc for SuccessPlatformsState e a lista for vazia",
     (WidgetTester tester) async {
       when(() => bloc.state).thenAnswer(
@@ -128,7 +128,7 @@ void main() {
   );
 
   testWidgets(
-    "Deve exibir o widget TabBarComponent quando "
+    "Deve exibir o widget GridViewComponent quando "
     "o estado do bloc for SuccessPlatformsState e a lista não for vazia",
     (WidgetTester tester) async {
       when(() => bloc.state).thenAnswer(

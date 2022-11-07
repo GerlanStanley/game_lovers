@@ -9,12 +9,12 @@ void main() {
   LocalIsDarkDataSourceImpl dataSource;
   const String key = "is_dark_key";
 
-  setUp(() async {
-    WidgetsFlutterBinding.ensureInitialized();
-  });
+  WidgetsFlutterBinding.ensureInitialized();
 
   group("Get", () {
     test("Deve retornar um false quando não estiver nada armazenado", () async {
+      SharedPreferences.setMockInitialValues({});
+
       sharedPreferences = await SharedPreferences.getInstance();
       dataSource = LocalIsDarkDataSourceImpl(sharedPreferences);
 

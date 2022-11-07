@@ -48,85 +48,111 @@ class MyApp extends StatelessWidget {
         Provider<InternetConnectionChecker>(
           create: (_) => InternetConnectionChecker(),
         ),
-        Provider<SharedPreferences>(create: (_) => sharedPreferences),
-        Provider<LocalDatabase>(create: (_) => localDatabase),
+        Provider<SharedPreferences>.value(value: sharedPreferences),
+        Provider<LocalDatabase>.value(value: localDatabase),
         Provider<Dio>(create: (_) => Dio()),
         Provider<Interceptor>(
           create: (context) => CustomInterceptor(
-            context.read(),
-            context.read(),
+            context.read<Dio>(),
+            context.read<SharedPreferences>(),
           ),
         ),
         Provider<IHttpHelper>(
           create: (context) => DioHttpHelperImpl(
-            context.read(),
-            context.read(),
+            context.read<Dio>(),
+            context.read<Interceptor>(),
           ),
         ),
 
         // DataSources
         Provider<ILocalIsDarkDataSource>(
-          create: (context) => LocalIsDarkDataSourceImpl(context.read()),
+          create: (context) => LocalIsDarkDataSourceImpl(
+            context.read<SharedPreferences>(),
+          ),
         ),
         Provider<IRemotePlatformDataSource>(
-          create: (context) => RemotePlatformDataSourceImpl(context.read()),
+          create: (context) => RemotePlatformDataSourceImpl(
+            context.read<IHttpHelper>(),
+          ),
         ),
         Provider<ILocalPlatformDataSource>(
-          create: (context) => LocalPlatformDataSourceImpl(context.read()),
+          create: (context) => LocalPlatformDataSourceImpl(
+            context.read<LocalDatabase>(),
+          ),
         ),
         Provider<IRemoteGameDataSource>(
-          create: (context) => RemoteGameDataSourceImpl(context.read()),
+          create: (context) => RemoteGameDataSourceImpl(
+            context.read<IHttpHelper>(),
+          ),
         ),
         Provider<ILocalGameDataSource>(
-          create: (context) => LocalGameDataSourceImpl(context.read()),
+          create: (context) => LocalGameDataSourceImpl(
+            context.read<LocalDatabase>(),
+          ),
         ),
         // Drivers
         Provider<IInternetDriver>(
-          create: (context) => InternetDriverImpl(context.read()),
+          create: (context) => InternetDriverImpl(
+            context.read<InternetConnectionChecker>(),
+          ),
         ),
 
         // Repositories
         Provider<IIsDarkRepository>(
-          create: (context) => IsDarkRepositoryImpl(context.read()),
+          create: (context) => IsDarkRepositoryImpl(
+            context.read<ILocalIsDarkDataSource>(),
+          ),
         ),
         Provider<IPlatformRepository>(
           create: (context) => PlatformRepositoryImpl(
-            context.read(),
-            context.read(),
-            context.read(),
+            context.read<IRemotePlatformDataSource>(),
+            context.read<ILocalPlatformDataSource>(),
+            context.read<IInternetDriver>(),
           ),
         ),
         Provider<IGameRepository>(
           create: (context) => GameRepositoryImpl(
-            context.read(),
-            context.read(),
-            context.read(),
+            context.read<IRemoteGameDataSource>(),
+            context.read<ILocalGameDataSource>(),
+            context.read<IInternetDriver>(),
           ),
         ),
 
         // UseCases
         Provider<IGetIsDarkUseCase>(
-          create: (context) => GetIsDarkUseCaseImpl(context.read()),
+          create: (context) => GetIsDarkUseCaseImpl(
+            context.read<IIsDarkRepository>(),
+          ),
         ),
         Provider<ISaveIsDarkUseCase>(
-          create: (context) => SaveIsDarkUseCaseImpl(context.read()),
+          create: (context) => SaveIsDarkUseCaseImpl(
+            context.read<IIsDarkRepository>(),
+          ),
         ),
         Provider<IGetAllPlatformsUseCase>(
-          create: (context) => GetAllPlatformsUseCaseImpl(context.read()),
+          create: (context) => GetAllPlatformsUseCaseImpl(
+            context.read<IPlatformRepository>(),
+          ),
         ),
         Provider<IGetAllGamesUseCase>(
-          create: (context) => GetAllGamesUseCaseImpl(context.read()),
+          create: (context) => GetAllGamesUseCaseImpl(
+            context.read<IGameRepository>(),
+          ),
         ),
 
         // Blocs
         Provider<ThemeBloc>(
-          create: (context) => ThemeBloc(context.read(), context.read())
-            ..add(
+          create: (context) => ThemeBloc(
+            context.read<IGetIsDarkUseCase>(),
+            context.read<ISaveIsDarkUseCase>(),
+          )..add(
               InitialThemeEvent(),
             ),
         ),
         Provider<PlatformsBloc>(
-          create: (context) => PlatformsBloc(context.read()),
+          create: (context) => PlatformsBloc(
+            context.read<IGetAllPlatformsUseCase>(),
+          ),
         ),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(
