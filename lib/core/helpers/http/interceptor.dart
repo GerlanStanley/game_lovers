@@ -64,8 +64,6 @@ class CustomInterceptor extends InterceptorsWrapper {
       },
     );
 
-    printDebug(response.data["access_token"]);
-
     _prefs.setString(
       PrefsKeysConstants.accessToken,
       response.data["access_token"],

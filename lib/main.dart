@@ -23,22 +23,18 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final sharedPreferences = await SharedPreferences.getInstance();
-  final localDatabase = LocalDatabase();
 
   runApp(MyApp(
     sharedPreferences: sharedPreferences,
-    localDatabase: localDatabase,
   ));
 }
 
 class MyApp extends StatelessWidget {
   final SharedPreferences sharedPreferences;
-  final LocalDatabase localDatabase;
 
   const MyApp({
     Key? key,
     required this.sharedPreferences,
-    required this.localDatabase,
   }) : super(key: key);
 
   @override
@@ -49,7 +45,10 @@ class MyApp extends StatelessWidget {
           create: (_) => InternetConnectionChecker(),
         ),
         Provider<SharedPreferences>.value(value: sharedPreferences),
-        Provider<LocalDatabase>.value(value: localDatabase),
+        Provider<LocalDatabase>(
+          create: (context) => LocalDatabase(),
+          dispose: (context, db) => db.close(),
+        ),
         Provider<Dio>(create: (_) => Dio()),
         Provider<Interceptor>(
           create: (context) => CustomInterceptor(
